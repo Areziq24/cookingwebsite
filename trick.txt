@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birria Recipe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 460vh;
+            background-image: url('background.jpg');
+            background-size: 120%;
+            background-position: center;
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+
+        .header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 2%;
+            text-align: center;
+            font-size: 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            margin-left: 80px;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.5em;
+            background-color: #575757;
+            padding: 0.2em;
+            border-radius: 5px;
+            margin-top: 1em;
+        }
+
+        .header a:hover {
+            background-color: #444;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 230px;
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .menu {
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #f1f1f1;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown a {
+            padding: 8px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .dropdown a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px 100px;
+            margin-left: 0;
+            transition: margin-left 0.3s;
+        }
+
+        .content.shifted {
+            margin-left: 250px;
+        }
+
+        .content-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            justify-items: center;
+            margin-top: 30px;
+        }
+
+        .image-container {
+            position: relative;
+            width: 600px;
+            height: 300px;
+            text-align: center;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 5px solid #444;
+            border-radius: 10px;
+            transition: transform 0.6s ease, filter 0.6s ease;
+            transform-style: preserve-3d;
+        }
+
+        .image-container:hover img {
+            transform: rotateY(180deg);
+            filter: blur(5px);
+        }
+
+        .image-container .description {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-container:hover .description {
+            opacity: 1;
+        }
+
+        .sidebar-toggle {
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+        }
+
+        .sidebar-toggle img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .recipe-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        .recipe-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .recipe-text {
+            margin-top: 15px;
+            color: black;
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+        .recipe-text h1 {
+            font-size: 28px;
+            margin: 10px 0;
+        }
+
+        .recipe-text p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .recipe-author {
+            margin-top: 10px;
+            font-size: 14px;
+            color: black;
+            text-align: right;
+        }
+
+        .view-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #575757;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .view-button:hover {
+            background-color: #444;
+        }
+
+        .course-details img {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            object-fit: cover;
+            border: 5px solid #444;
+            border-radius: 10px;
+        }
+
+        .back-button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #575757;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <img src="menu.png" alt="Menu">
+        </button>
+        <h1>Cooking School</h1>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/login.html">Log Out</a>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar" id="sidebar">
+            <h2>Recipes</h2>
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html">Home</a>
+            <div class="menu">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html">Menu</a>
+                <div class="dropdown">
+                    <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/us.html">America</a>
+                    <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/japan.html">Japan</a>
+                    <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/thailand.html">Thailand</a>
+                    <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/korea.html">Korea</a>
+                </div>
+            </div>
+            <div class="menu">
+                <a href="#">Top 4 Food Inspiration</a>
+                <div class="dropdown">
+                    <a href="#celebritychefs">Celebrity Chefs</a>
+                    <a href="#chefInfluencers">Chef Influencers</a>
+                </div>
+            </div>
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/student.html">Student Recipes</a>
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/shortrecipe.html">Short Recipes</a>
+            <div class="menu">
+                <a href="#">Tips and Trick</a>
+                <div class="dropdown">
+                    <a href="#">Tips</a>
+                    <a href="#">Trick</a>
+                </div>
+            </div>
+            <a href="#">Kitchen Utensils</a>
+            <a href="#">Desserts</a>
+            <a href="#">Feedback</a>
+        </div>
+
+        <div class="content" id="content">
+            <div class="content-container">
+                <!--First box-->
+                <div id="course2" class="course-details">
+                    <img src="syrup.jpg" alt="syrup">
+                    <h1>How to make simple syrup</h1>
+                    <p>Want to sweeten your lemonade or iced tea? Instead of reaching for the sugar bowl, you'll get a better result—no sandy granules at the bottom of the glass—if you mix up a batch of simple syrup. Here's how.</p>
+                    <p><b>Step 1.</b> Combine equal parts water and sugar in a saucepan and cook over medium heat, stirring often, until the sugar has completely dissolved (3 to 5 minutes).</p>
+                    <p><b>Step 2.</b> Let it cool and then add to beverages as needed.</p>
+                    <p>Use 1½ teaspoons of simple syrup for every teaspoon of sugar you would usually use and store the syrup in the refrigerator for up to 2 weeks. We told you it was simple!</p>
+                    <br>
+                    <hr>
+                    <br>
+
+                    <!--Second box-->
+                    <img src="corn.jpg" alt="grill corn">
+                    <h1>How to grill corn</h1>
+                    <p>It's hard to beat the smoky-sweet flavor of fresh corn cooked on a grill. Here's how to do it to perfection.</p>
+                    <p><b>Step 1.</b> Pull the husks back from the corn, but leave them attached at the stem. Remove and discard the silks.</p>
+                    <p><b>Step 2.</b> Pull the husks back up around the corn. Soak the ears in a roasting pan or large bowl full of water for 15 minutes. (This prevents the husks from burning.)</p>
+                    <p><b>Step 3.</b> Grill corn over medium heat, turning often, until the kernels are tender and husks are lightly charred, 8 to 10 minutes.</p>
+                    <br>
+                    <hr>
+                    <br>
+
+                    <!--Third box-->
+                    <img src="pizza.jpg" alt="pizza">
+                    <h1>How to reheat pizza perfectly</h1>
+                    <p>Whether you're craving a midnight snack or enjoying leftovers, reheating pizza to perfection is an art. You don't want a soggy crust or unevenly melted cheese. Here are three foolproof methods to bring your pizza back to life:</p>
+                    <p><b>Step 1.</b> Preheat the oven to 375°F (190°C).</p>
+                    <p><b>Step 2.</b> Place your pizza slices on a baking sheet. You can use parchment paper or aluminum foil for easy cleanup.</p>
+                    <p><b>Step 3.</b> Bake the pizza for about 10 minutes. If you want a crispier crust, you can bake it directly on the oven rack (just be sure to put a baking sheet on the rack below to catch any drips).</p>
+                    <p><b>Step 4.</b> After 10 minutes, check to see if the cheese is bubbly and the crust is crispy. If not, continue baking for a few more minutes.</p>
+                    <p><b>Step 5.</b> Let the pizza cool for a minute before serving.</p>
+                    <br>
+                    <hr>
+                    <br>
+
+                    <!--Fourth box-->
+                    <img src="ironpan.png" alt="iron pan">
+                    <h1>How to season a cast iron pan</h1>
+                    <p>The cast iron skillet is an affordable classic that belongs in every kitchen. Cast iron distributes heat evenly and holds heat, so it's great for searing and frying. Its naturally nonstick surface—the product of "seasoning," a method used to seal and smooth the iron—makes it a good choice for delicate items, like breaded cutlets. Some pans come pre-seasoned. If yours isn't or if you have a pan that needs re-seasoning, here's how to easily get it into shape.</p>
+                    <p><b>Step 1.</b> Wash the pan with hot, soapy water and a stiff brush, and then rinse and dry thoroughly. Use a folded paper towel to apply a thin, even coating of vegetable oil to the pan, inside and out.</p>
+                    <p><b>Step 2.</b> Place a sheet of aluminum foil on the bottom oven rack to catch drips, and then set the pan on the top rack at 350 degrees F for 1 hour.</p>
+                    <p><b>Step 3.</b> After an hour, leave the pan in the oven while they both cool down.</p>
+                    <br>
+                    <button class="back-button" onclick="goBack()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+            document.getElementById("content").classList.toggle("shifted");
+        }
+
+        function goBack() {
+            window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips&trick.html";
+        }
+    </script>
+</body>
+</html>

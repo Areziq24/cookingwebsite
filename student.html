@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Website</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        .header {
+            background-color: rgba(51, 51, 51, 0.9);
+            color: white;
+            padding: 1% 2%;
+            text-align: center;
+            font-size: 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: inherit;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8em;
+            background-color: #575757;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .header a:hover {
+            background-color: #444;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgba(51, 51, 51, 0.9);
+            color: white;
+            padding: 0px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .menu {
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #f1f1f1;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown a {
+            padding: 8px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .dropdown a:hover {
+            background-color: #575757;
+        }
+
+        .main-container {
+            transition: margin-left 0.3s ease;
+            margin-left: 0;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .main-container.shifted {
+            margin-left: 250px;
+        }
+
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .content h1, .content h2, .content h3 {
+            margin: 0 0 10px;
+        }
+
+        .content p {
+            margin: 0 0 20px;
+        }
+
+        .recipe-image {
+            border-radius: 10px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .ingredients-section {
+            margin: 20px 0;
+        }
+
+        .ingredients-section h2 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .ingredient-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ingredient-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .ingredient-list input[type="checkbox"] {
+            margin-right: 20px;
+            accent-color: #6b2b7d;
+        }
+
+        .ingredient-list li.checked label {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .units {
+            margin: 10px 0;
+        }
+
+        .units span {
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        .units button {
+            background-color: #6b2b7d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin-right: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .units button.active {
+            background-color: #d9b3e6;
+            color: #6b2b7d;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                margin-left: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .main-container.shifted {
+                margin-left: 0;
+            }
+        }
+
+        .sidebar-toggle {
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+        }
+
+        .sidebar-toggle img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <img src="menu.png" alt="Menu">
+        </button>
+        <h1>Taste Maker Academy</h1>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/login.html">Log Out</a>
+    </div>
+
+    <div class="main-container">
+          <div class="sidebar" id="sidebar">
+        <h2>Recipes</h2>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html">Home</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html">Menu</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/malaysia.html">Malaysia</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/japan.html">Japan</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/thailand.html">Thailand</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/korea.html">Korea</a>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/t4.html">Top 4 Food Inspiration</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefcelebrity.html">Celebrity Chefs</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefinfluncer.html">Chef Influencers</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/student.html">Student Recipes</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/beverage.html">Beverage Recipes</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips&trick.html">Tips and Trick</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips.html">Tips</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/trick.html">Trick</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/kitchenutensil.html">Kitchen Utensils</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/dessert.html">Desserts</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/fb.html">Feedback</a>
+    </div>
+
+
+        <div class="content" id="content1">
+            <h2 class="center-text">STUDENT RECIPES</h2>
+            <img src="sayur.jpg" class="recipe-image">
+            <h1>Sayur Goreng Campur</h1>
+            <p>Sayur Campur Goreng is a favorite vegetable of Malaysians that is often served in Chinese restaurants. In addition, you can find this vegetable at the nasi campur store as well.</p>
+
+            <div class="ingredients-section">
+                <h2>Ingredients</h2>
+                <h3>Sayur Goreng Campur:</h3>
+                <ul class="ingredient-list">
+                    <li><input type="checkbox" id="sayur goreng campur"><label for="sayur goreng campur">Bawang putih</label></li>
+                    <li><input type="checkbox" id="bawang-holland"><label for="bawang-holland">Bawang Holland</label></li>
+                    <li><input type="checkbox" id="fishball"><label for="fishball">Fishball</label></li>
+                    <li><input type="checkbox" id="Lobakmerah"><label for="lobak">Lobak Merah</label></li>
+                    <li><input type="checkbox" id="sos"><label for="sos">Sos tiram</label></li>
+                    <li><input type="checkbox" id="air"><label for="air">Air</label></li>
+                    <li><input type="checkbox" id="Kubis bunga"><label for="kubis bunga">Kubis Bunga</label></li>
+                    <li><input type="checkbox" id="Brokoli"><label for="Brokoli">Brokoli</label></li>
+                    <li><input type="checkbox" id="cili merah"><label for="cili merah">Cili Merah</label></li>
+                    <li><input type="checkbox" id="Garam"><label for="Garam">Garam</label></li>
+                    <li><input type="checkbox" id="Serbuk Perasa"><label for="Serbuk Perasa">Serbuk Perasa</label></li>
+                </ul>
+
+                <h2>How To Cook</h2>
+                <ol>
+                    <li>First, saute garlic and hollandaise until fragrant.</li>
+                    <li>After that, add the fishball and cook for a while.</li>
+                    <li>Add carrots, oyster sauce and a little water, then cook for a while.</li>
+                    <li>Add the cauliflower, broccoli and red chili, then cook until the vegetables are half soft.</li>
+                    <li>Finally, season with salt and seasoning powder if needed. Ready to serve!</li>
+                </ol>
+            </div>
+        </div>
+        <div class="content" id="content2">
+            <img src="keli.jpg" class="recipe-image">
+            <h1>Ikan Keli Berlada</h1>
+            <p>Ikan Keli Berlada is delicious when it is made spicy, you know, it is even better when the catfish is fried crispy. Surely you will eat without looking left and right. This peppered catfish is delicious eaten with hot rice along with ulaman ulaman and belacan.</p>
+
+            <div class="ingredients-section">
+                <h2>Ingredients</h2>
+                <h3>Ikan Keli Berlada:</h3>
+                <ul class="ingredient-list">
+                    <li><input type="checkbox" id="ikan keli"><label for="ikan keli">2 ekor ikan keli</label></li>
+                    <li><input type="checkbox" id="cili"><label for="cili">6 biji cili merah</label></li>
+                    <li><input type="checkbox" id="cili api"><label for="cili api">10 ciji cili api</label></li>
+                    <li><input type="checkbox" id="bwg merah"><label for="bwg merah">6 biji bawang merah kecil</label></li>
+                    <li><input type="checkbox" id="bwg putih"><label for="bwg putih">2 ulas bawang putih</label></li>
+                </ul>
+
+                <h2>How To Cook</h2>
+                <ol>
+                    <li>First the catfish is peeled, then cut into several parts.</li>
+                    <li>Wash, drain and mix with 1 large cup of wheat flour. Marinate for 10 minutes then rinse. Mix it with a little lime juice or tamarind water until smooth and marinate for a while.</li>
+                    <li>Wash again, drain and add turmeric powder and salt.</li>
+                    <li>Mix well and fry until the fish is cooked. Remove and set aside.</li>
+                    <li>Heat 3 large cups of oil in a pan, stir-fry the ground ingredients until fragrant.</li>
+                    <li>Add salt, seasoning powder and sugar to taste. Finally add the fried catfish.</li>
+                    <li>Mix until smooth and turn off the heat. Ready and can be served with hot rice.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="content" id="content2">
+            <img src="sambal_telur.jpg" class="recipe-image">
+            <h1>Sambal Telur</h1>
+            <p>Sambal Telur is a spicy egg dish that is popular in Malaysia. It is made with hard-boiled eggs cooked in a spicy sambal sauce.</p>
+
+            <div class="ingredients-section">
+                <h2>Ingredients</h2>
+                <h3>Sambal Telur:</h3>
+                <ul class="ingredient-list">
+                    <li><input type="checkbox" id="eggs"><label for="eggs">4 hard-boiled eggs</label></li>
+                    <li><input type="checkbox" id="onion"><label for="onion">1 large onion, sliced</label></li>
+                    <li><input type="checkbox" id="garlic"><label for="garlic">3 cloves garlic, minced</label></li>
+                    <li><input type="checkbox" id="chili-paste"><label for="chili-paste">3 tablespoons chili paste</label></li>
+                    <li><input type="checkbox" id="tamarind-juice"><label for="tamarind-juice">2 tablespoons tamarind juice</label></li>
+                    <li><input type="checkbox" id="sugar"><label for="sugar">1 teaspoon sugar</label></li>
+                    <li><input type="checkbox" id="salt"><label for="salt">Salt to taste</label></li>
+                </ul>
+
+                <h2>How To Cook</h2>
+                <ol>
+                    <li>Heat oil in a pan and fry the hard-boiled eggs until they are golden brown. Remove and set aside.</li>
+                    <li>In the same pan, sauté the sliced onion and minced garlic until fragrant.</li>
+                    <li>Add the chili paste and cook until the oil separates from the paste.</li>
+                    <li>Add the tamarind juice, sugar, and salt. Stir well to combine.</li>
+                    <li>Return the fried eggs to the pan and coat them with the sambal sauce. Cook for a few more minutes.</li>
+                    <li>Serve hot with rice.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="content" id="content3">
+            <img src="sardin_telur.jpg" class="recipe-image">
+            <h1>Sardin Telur</h1>
+            <p>Sardin Telur is a simple and delicious dish made with sardines and eggs. It is a popular choice for a quick and easy meal.</p>
+
+            <div class="ingredients-section">
+                <h2>Ingredients</h2>
+                <h3>Sardin Telur:</h3>
+                <ul class="ingredient-list">
+                    <li><input type="checkbox" id="sardines"><label for="sardines">1 can sardines in tomato sauce</label></li>
+                    <li><input type="checkbox" id="eggs"><label for="eggs">3 eggs</label></li>
+                    <li><input type="checkbox" id="onion"><label for="onion">1 large onion, sliced</label></li>
+                    <li><input type="checkbox" id="garlic"><label for="garlic">2 cloves garlic, minced</label></li>
+                    <li><input type="checkbox" id="chili"><label for="chili">2 red chilies, sliced</label></li>
+                    <li><input type="checkbox" id="salt"><label for="salt">Salt to taste</label></li>
+                    <li><input type="checkbox" id="oil"><label for="oil">2 tablespoons oil</label></li>
+                </ul>
+
+                <h2>How To Cook</h2>
+                <ol>
+                    <li>Heat oil in a pan and sauté the sliced onion and minced garlic until fragrant.</li>
+                    <li>Add the sliced red chilies and cook for a few more minutes.</li>
+                    <li>Add the sardines along with the tomato sauce and break them into smaller pieces.</li>
+                    <li>Beat the eggs in a bowl and pour them into the pan. Stir gently to combine with the sardines.</li>
+                    <li>Cook until the eggs are set. Season with salt to taste.</li>
+                    <li>Serve hot with rice.</li>
+                </ol>
+            </div>
+        </div>
+<div class="content" id="content3">
+    <img src="bubur.jpg" class="recipe-image">
+    <h1>McD's Rice Porridge</h1>
+    <p>Rice porridge is also popular as a recovery food for people who are not well or are on a diet because of its soft texture and easy digestion.</p>
+
+    <div class="ingredients-section">
+        <h2>Ingredients</h2>
+        <h3>McD's Rice Porridge:</h3>
+        <ul class="ingredient-list">
+            <li><input type="checkbox" id="chicken"><label for="chicken">2-3 pieces Chicken Breast</label></li>
+            <li><input type="checkbox" id="rice"><label for="rice">1 1/2 pots Rice (washed and drained)</label></li>
+            <li><input type="checkbox" id="ginger"><label for="ginger">1 1/2 inches Ginger (thinly sliced)</label></li>
+            <li><input type="checkbox" id="stock"><label for="stock">2 cubes Chicken Stocks</label></li>
+            <li><input type="checkbox" id="water"><label for="water">1 1/2 cups Water</label></li>
+            <li><input type="checkbox" id="sesame"><label for="sesame">Sesame Oil</label></li>
+            <li><input type="checkbox" id="onion"><label for="onion">Spring Onion (sliced)</label></li>
+            <li><input type="checkbox" id="radish"><label for="radish">Red Radish (diced)</label></li>
+            <li><input type="checkbox" id="seasoning"><label for="seasoning">A pinch Seasoning Powder</label></li>
+            <li><input type="checkbox" id="redpepper"><label for="redpepper">A pinch Red Pepper</label></li>
+            <li><input type="checkbox" id="pepper"><label for="pepper">1 teaspoon Pepper</label></li>
+        </ul>
+
+        <h2>How To Cook</h2>
+        <ol>
+            <li>In a large pot, bring water to boil with chicken stock cubes.</li>
+            <li>Add washed rice and sliced ginger, reduce heat to medium-low.</li>
+            <li>Add chicken breast and simmer for 20-25 minutes, stirring occasionally.</li>
+            <li>Remove chicken, shred it, then return to the pot.</li>
+            <li>Season with seasoning powder and pepper.</li>
+            <li>Add salt to taste if needed.</li>
+            <li>Serve in bowls and garnish with spring onions, red radish, sesame oil and red pepper.</li>
+        </ol>
+    </div>
+</div>
+
+<div class="content" id="content3">
+    <img src="ayam kunyit.jpg" class="recipe-image" style="display: block; margin-left: 0;">
+    <h1 style="text-align: left">Turmeric Chicken Stir Fry</h1>
+    <p style="text-align: left">It features chicken as the main ingredient, cooked with turmeric as the star spice, giving it a vibrant yellow color and a distinct flavor.</p>
+
+    <div class="ingredients-section" style="text-align: left">
+        <h2>Ingredients</h2>
+        <h3>Turmeric Chicken Stir Fry:</h3>
+        <ul class="ingredient-list">
+            <li><input type="checkbox" id="chicken"><label for="chicken">150g Chicken Fillet (cut into bite-sized pieces)</label></li>
+            <li><input type="checkbox" id="carrots"><label for="carrots">Carrots (thinly sliced)</label></li>
+            <li><input type="checkbox" id="longbean"><label for="longbean">Long Bean (cut into medium pieces)</label></li>
+            <li><input type="checkbox" id="onion"><label for="onion">Green Onion (thinly sliced)</label></li>
+            <li><input type="checkbox" id="garlic"><label for="garlic">Minced Garlic</label></li>
+            <li><input type="checkbox" id="turmeric"><label for="turmeric">Turmeric Powder</label></li>
+            <li><input type="checkbox" id="paprika"><label for="paprika">Paprika Powder</label></li>
+            <li><input type="checkbox" id="cornstarch"><label for="cornstarch">Cornstarch</label></li>
+            <li><input type="checkbox" id="salt"><label for="salt">A pinch Salt</label></li>
+        </ul>
+        <h2>How To Cook</h2>
+        <ol>
+            <li>Combine cornflour, salt, white pepper, and 1 teaspoon turmeric powder.</li>
+            <li>Coat the chicken with the cornflour mixture.</li>
+            <li>Heat the oil in a skillet and cook the chicken till golden brown. Set it aside.</li>
+            <li>Remove the excess oil and stir-fry the onions until tender and transparent. Add the carrots and long beans.</li>
+            <li>Season with salt, 1 tsp turmeric powder, 1 tsp paprika powder, and plenty of white pepper, to taste.</li>
+            <li>When the carrots begin to soften, add the chicken and stir until evenly incorporated.</li>
+        </ol>
+    </div>
+</div>
+    <div class="content" id="content2">
+            <img src="cucur.jpg" class="recipe-image">
+            <h1>Crispy Potato Fried</h1>
+            <p>There are actually many other types of cucur that you can try, one of which is the potato cucur recipe.</p>
+
+            <div class="ingredients-section">
+                <h2>Ingredients</h2>
+                <h3>Ikan Keli Berlada:</h3>
+                <ul class="ingredient-list">
+                    <li><input type="checkbox" id="ikan keli"><label for="ikan keli">Potatoes</label></li>
+                    <li><input type="checkbox" id="cili"><label for="cili">Large Red Onion</label></li>
+                    <li><input type="checkbox" id="cili api"><label for="cili api">Spring Onion</label></li>
+                    <li><input type="checkbox" id="bwg merah"><label for="bwg merah">Green Chilies</label></li>
+                    <li><input type="checkbox" id="bwg putih"><label for="Wheat Flour">Cornstarch</label></li>
+  <li><input type="checkbox" id="bwg putih"><label for="Wheat Flour">Egg</label></li>
+  <li><input type="checkbox" id="bwg putih"><label for="Wheat Flour">Salt</label></li>
+  <li><input type="checkbox" id="bwg putih"><label for="Wheat Flour">Papper</label></li>
+                </ul>
+
+                <h2>How To Cook</h2>
+                <ol>
+                    <li>Peel all the skin of the potatoes, then cut or grate the potatoes finely.</li>
+                    <li>Finely slice the onion, spring onion and green chili.</li>
+                    <li>Put the grated potatoes into a container, then mix with the finely sliced ​​onions, spring onions and green chilies.</li>
+                    <li>Add wheat flour, corn flour, chicken egg, salt and pepper. Mix until smooth.</li>
+                    <li>Heat the oil, then fry the prepared cucur until golden brown.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="content" id="content2">
+    <img src="nasi.jpg" class="recipe-image">
+    <h1>Nasi Goreng Telur</h1>
+    <p>This fried rice recipe is simple to make and requires very few ingredients.</p>
+
+    <div class="ingredients-section">
+        <h2>Ingredients</h2>
+        <h3>Nasi Goreng Telur:</h3>
+        <ul class="ingredient-list">
+            <li><input type="checkbox" id="onion"><label for="onion">2 cloves Small Red Onion</label></li>
+            <li><input type="checkbox" id="garlic"><label for="garlic">4 cloves Garlic</label></li>
+            <li><input type="checkbox" id="chili"><label for="chili">3 sticks Green Chili</label></li>
+            <li><input type="checkbox" id="rice"><label for="rice">1 bowl Cold Rice</label></li>
+            <li><input type="checkbox" id="salt"><label for="salt">A pinch Salt</label></li>
+            <li><input type="checkbox" id="pepper"><label for="pepper">1/2 small spoon Black Pepper</label></li>
+            <li><input type="checkbox" id="anchovy"><label for="anchovy">1/2 teaspoon Anchovy Powder</label></li>
+            <li><input type="checkbox" id="eggs"><label for="eggs">2 Eggs</label></li>
+        </ul>
+
+        <h2>How To Cook</h2>
+        <ol>
+            <li>Slice the onion, garlic, and chillies. Whisk the eggs.</li>
+            <li>Heat the oil and add the beaten eggs.</li>
+            <li>Quickly stir the eggs in the pan until they are broken up. Once they are slightly crispy, add the sliced ​​red onion, garlic & green chilli.</li>
+            <li>Once the onions have wilted and become slightly crunchy, add the rice. Mix well. Add salt, black pepper, anchovy powder, and vegetables (if desired). Mix well. Ready!!</li>
+        </ol>
+    </div>
+</div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var mainContainer = document.querySelector(".main-container");
+            sidebar.classList.toggle("open");
+            mainContainer.classList.toggle("shifted");
+        }
+
+        const checkboxes = document.querySelectorAll('.ingredient-list input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const listItem = checkbox.parentElement;
+                listItem.classList.toggle('checked', checkbox.checked);
+            });
+        });
+    </script>
+
+</body>
+</html>

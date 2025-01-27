@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            height: 10vh;
+        }
+
+        /* Adjusted header style */
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 2% 2%; /* Adjusted padding for header */
+            text-align: center;
+            font-size: 2em; /* Adjusted font size */
+            display: flex;
+            justify-content: space-between; /* To align the content */
+            align-items: center; /* To align the content vertically */
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: inherit;
+            margin-left: 80px; /* Move the text more to the right */
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.5em;
+            background-color: #575757;
+            padding: 0.2em 0.2em;
+            border-radius: 5px;
+            margin-top: 1em;
+            display: inline-block;
+        }
+
+        .header a:hover {
+            background-color: #444;
+        }
+
+        .sidebar {
+            width: 230px; /* Adjust the width as needed */
+            background-color: #333;
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: -250px; /* Adjust the left position as needed */
+            height: 100%;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        /* Dropdown menu */
+        .menu {
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #f1f1f1;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown a {
+            padding: 8px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .dropdown a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+    flex: 1;
+    padding: -50px 50px;
+    background-color: white; /* Change the background color to white or any color */
+    background-image: url('bg2.jpg'); /* Add background image */
+    background-size: cover; /* Make sure the background covers the entire content area */
+    background-position: center; /* Center the background image */
+    margin-left: -5px; /* Adjust the margin-left as needed */
+    transition: margin-left 0.3s;
+}
+
+
+        .content.shifted {
+            margin-left: 0;
+        }
+
+        .main-image {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .main-image .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background-color: black;
+            color: white;
+        }
+
+        .search-bar {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+        }
+
+        .search-bar input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-bar input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .search-bar input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .recipe-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .recipe-section .recipe {
+            width: 45%;
+            margin: 10px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .recipe-section .recipe:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .recipe-section img {
+            width: 40%;
+            border-radius: 10px;
+        }
+
+        .recipe-section .recipe-content {
+            width: 55%;
+            padding: 20px;
+        }
+
+        .recipe-section h3 {
+            margin-bottom: 10px;
+        }
+
+        .recipe-section p {
+            margin: 5px 0;
+        }
+
+        .sidebar-toggle {
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+        }
+
+        .sidebar-toggle img {
+            width: 30px;
+            height: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .recipe-section .recipe {
+                flex-direction: column;
+            }
+
+            .recipe-section .recipe:nth-child(odd) {
+                flex-direction: column;
+            }
+
+            .recipe-section img,
+            .recipe-section .recipe-content {
+                width: 100%;
+            }
+        }
+
+        /* Center text class */
+        .center-text {
+            text-align: center;
+    color: white; /* Makes the text white */
+        }
+
+        .about-us {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .box {
+            width: 200px;
+            background-color: black;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .box h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: white;
+        }
+
+        .box p {
+            font-size: 1em;
+            color: white;
+        }
+.about-us .box p {
+    text-align: center;  /* Center the text */
+    line-height: 1.5;     /* Add spacing between lines */
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <img src="menu.png" alt="Menu">
+        </button>
+        <h1>Taste Maker Academy</h1>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/login.html">Log Out</a>
+    </div>
+
+     <div class="sidebar" id="sidebar">
+        <h2>Recipes</h2>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html">Home</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html">Menu</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/malaysia.html">Malaysia</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/japan.html">Japan</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/thailand.html">Thailand</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/korea.html">Korea</a>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/t4.html">Top 4 Food Inspiration</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefcelebrity.html">Celebrity Chefs</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefinfluncer.html">Chef Influencers</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/student.html">Student Recipes</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/beverage.html">Beverage Recipes</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips&trick.html">Tips and Trick</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips.html">Tips</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/trick.html">Trick</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/kitchenutensil.html">Kitchen Utensils</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/dessert.html">Desserts</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/fb.html">Feedback</a>
+    </div>
+
+
+    <div class="content" id="content">
+    <div class="main-image">
+        <img src="cook.jpg" alt="Cook">
+        <div class="overlay-text">Welcome to Cooking Class</div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for recipes...">
+            <input type="submit" value="Search" onclick="performSearch()">
+        </div>
+    </div>
+
+    <h1 class="center-text">ABOUT US</h1>
+    <p class="center-text">Click the profile image to see our social media!</p>
+
+    <!-- About Us Section -->
+    <div class="about-us">
+    <div class="box">
+        <a href="https://www.instagram.com/haziq_shafee/?next=%2F" target="_blank">
+            <img src="person1.jpg" alt="Person 4" class="profile-img">
+        </a>
+        <h3>HAZIQ</h3>
+        <p>Editor</p>
+        <p>Cooking is the art of preparing food by combining ingredients through various methods like boiling, frying, baking, or grilling. It allows creativity in flavor and presentation, turning raw ingredients into delicious meals. Whether it's a simple dish or an elaborate recipe, cooking brings people together, offering both nourishment and the joy of shared experiences.</p>
+    </div>
+    <div class="box">
+        <a href="https://www.instagram.com/zirahyusof_/" target="_blank">
+            <img src="person2.jpg" alt="Person 3" class="profile-img">
+        </a>
+        <h3>NAZIRAH</h3>
+        <p>Editor</p>
+        <p>Cooking blends creativity and practicality, turning raw ingredients into satisfying meals. It’s a way to experiment with flavors, discover new cuisines, and connect with others. Beyond providing nourishment, cooking is a chance to express personal taste, try new things, and enjoy the joy of sharing food with loved ones.</p>
+    </div>
+    <div class="box">
+        <a href="https://www.instagram.com/kinthebueno/" target="_blank">
+            <img src="person3.png" alt="Person 1" class="profile-img">
+        </a>
+        <h3>FIZA</h3>
+        <p>Editor</p>
+        <p>We believe that cooking should be fun, approachable, and accessible to all. That's why we focus on creating recipes that are not only delicious but also easy to follow. Our goal is to empower you to unleash your inner chef and make every meal a memorable one.</p>
+    </div>
+    <div class="box">
+        <a href="https://www.instagram.com/azriiina_/" target="_blank">
+            <img src="person4.jpg" alt="Person 2" class="profile-img">
+        </a>
+        <h3>AZRINA</h3>
+        <p>Editor</p>
+        <p>Cooking is both an art and a necessity, where creativity meets nourishment. By combining ingredients through various techniques, cooks transform simple items into flavorful meals. It’s a way to express oneself, explore different cultures, and connect with others over shared experiences.</p>
+    </div>
+</div>
+
+
+<script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var content = document.getElementById("content");
+            sidebar.classList.toggle("open");
+            content.classList.toggle("shifted");
+        }
+
+        // Perform search function
+        function performSearch() {
+            var searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
+            if (searchTerm) {
+                // Example search logic (you can add more specific conditions here)
+                if (searchTerm === "tips") {
+                    window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips.html";
+                } else if (searchTerm === "menu") {
+                    window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html";
+                } else if (searchTerm === "desserts") {
+                    window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/dessert.html";
+                } else if (searchTerm === "top4") {
+                    window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/t4.html";
+                } else if (searchTerm === "student") {
+                    window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/student.html";
+                } else if (searchTerm === "beverage") {
+                    window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/beverage.html";
+                } else if (searchTerm === "trick") {
+                    window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/trick.html";
+                } else if (searchTerm === "utensil") {
+                    window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/kitchenutensil.html";
+ } else if (searchTerm === "dessert") {
+                    window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/dessert.html";
+                } else if (searchTerm === "feedback") {
+                    window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/fb.html";
+                } else {
+                    alert("No results found for: " + searchTerm);
+                }
+            } else {
+                alert("Please enter a search term");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Adjusted header style */
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 2% 2%; /* Adjusted padding for header */
+            text-align: center;
+            font-size: 2em; /* Adjusted font size */
+            display: flex;
+            justify-content: space-between; /* To align the content */
+            align-items: center; /* To align the content vertically */
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: inherit;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.5em;
+            background-color: #575757;
+            padding: 0.2em 0.2em;
+            border-radius: 5px;
+            margin-top: 1em;
+            display: inline-block;
+        }
+
+        .header a:hover {
+            background-color: #444;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        /* Dropdown menu */
+        .menu {
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #f1f1f1;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown a {
+            padding: 8px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .dropdown a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px 50px;
+            background-color: #f4f4f4;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            justify-items: center;
+            margin-top: 20px;
+        }
+
+        .image-container {
+            position: relative;
+            width: 450px;
+            height: 300px;
+            text-align: center;
+            perspective: 1000px;
+            cursor: pointer; /* Make it look clickable */
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 5px solid #444;
+            border-radius: 10px;
+            transition: transform 0.6s ease, filter 0.6s ease;
+            transform-style: preserve-3d;
+        }
+
+        .image-container:hover img {
+            transform: rotateY(180deg);
+            filter: blur(5px);
+        }
+
+        .image-container .description {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-container:hover .description {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Culinary UiTM</h1>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/login.html">Log Out</a>
+    </div>
+
+    <div class="sidebar">
+        <h2>Recipes</h2>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html">Home</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html">Menu</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/us.html">America</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/japan.html">Japan</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/thailand.html">Thailand</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/korea.html">Korea</a>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="#">Top 4 Food Inspiration</a>
+            <div class="dropdown">
+                <a href="#celebritychefs">Celebrity Chefs</a>
+                <a href="#chefInfluencers">Chef Influencers</a>
+            </div>
+        </div>
+        <a href="#">Student Recipes</a>
+        <a href="#">5 Minutes Recipes</a>
+        <a href="#">Tips and Trick</a>
+        <a href="#">Kitchen Utensils</a>
+        <a href="#">Desserts</a>
+        <a href="#">Feedback</a>
+    </div>
+
+    <div class="content">
+        <h1>Welcome to the Recipe Website</h1>
+        <p>Select a country or menu item from the sidebar to explore recipes.</p>
+
+        <div class="recipe-section" id="america">
+            <h3>American Recipes</h3>
+            <p>- Cheeseburger</p>
+            <p>- Apple Pie</p>
+            <p>- BBQ Ribs</p>
+        </div>
+
+        <div class="recipe-section" id="japan">
+            <h3>Japanese Recipes</h3>
+            <p>- Sushi</p>
+            <p>- Ramen</p>
+            <p>- Tempura</p>
+        </div>
+
+        <div class="recipe-section" id="thailand">
+            <h3>Thai Recipes</h3>
+            <p>- Pad Thai</p>
+            <p>- Tom Yum Goong</p>
+            <p>- Green Curry</p>
+        </div>
+
+        <div class="recipe-section" id="korea">
+            <h3>Korean Recipes</h3>
+            <p>- Kimchi</p>
+            <p>- Bibimbap</p>
+            <p>- Bulgogi</p>
+        </div>
+    </div>
+
+</body>
+</html>

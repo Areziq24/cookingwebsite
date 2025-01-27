@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birria Recipe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 150vh;
+            background-image:url(bg.webp);
+            background-size: 120%;
+            background-position: center;
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+
+        .header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 2%;
+            text-align: center;
+            font-size: 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            margin-left: 80px;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.5em;
+            background-color: #575757;
+            padding: 0.2em;
+            border-radius: 5px;
+            margin-top: 1em;
+        }
+
+        .header a:hover {
+            background-color: #444;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 230px;
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .menu {
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #f1f1f1;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown a {
+            padding: 8px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .dropdown a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px 100px;
+            margin-left: 0;
+            transition: margin-left 0.3s;
+        }
+
+        .content.shifted {
+            margin-left: 250px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            width: 100%;
+            background: #D8E1E9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img.thumbnail {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        .product-title {
+            font-size: 16px;
+            color: #000000;
+            margin: 10px 0;
+        }
+
+        .price {
+            font-size: 18px;
+            color: red;
+            margin: 5px 0;
+        }
+
+        .discount {
+            color: green;
+            font-size: 14px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .badge {
+            background: #14248A;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .rating {
+            color: #f39c12;
+            margin: 5px 0;
+        }
+
+        .location {
+            font-size: 14px;
+            color: gray;
+            margin-bottom: 10px;
+        }
+
+        .buy-now {
+            background-color: #37515F; 
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .buy-now:hover {
+            background-color: #E4959E;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .modal-content img.enlarged-image {
+            width: 20%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            color: black;
+            cursor: pointer;
+        }
+
+        .sidebar-toggle {
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+        }
+
+.center-text {
+    color: black;
+    text-align: center;  /* Centers the text horizontally */
+    margin-top: 50px;     /* Adjust the top margin as needed to center vertically */
+}
+
+
+        .sidebar-toggle img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <img src="menu.png" alt="Menu">
+        </button>
+        <h3>Taste Maker Academy</h3>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/login.html">Log Out</a>
+    </div>
+
+    <div class="main-container">
+      <div class="sidebar" id="sidebar">
+        <h2>Recipes</h2>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html">Home</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html">Menu</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/malaysia.html">Malaysia</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/japan.html">Japan</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/thailand.html">Thailand</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/korea.html">Korea</a>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/t4.html">Top 4 Food Inspiration</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefcelebrity.html">Celebrity Chefs</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefinfluncer.html">Chef Influencers</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/student.html">Student Recipes</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/beverage.html">Beverage Recipes</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips&trick.html">Tips and Trick</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips.html">Tips</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/trick.html">Trick</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/kitchenutensil.html">Kitchen Utensils</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/dessert.html">Desserts</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/fb.html">Feedback</a>
+    </div>
+
+
+        <div class="content" id="content">
+            <h2 class="center-text">KITCHEN UTENSILS</h2>
+            <div class="container">
+                <!-- Product Card 1 -->
+                <div class="product-card">
+                    <img src="nasi.webp" alt="Product Thumbnail" class="thumbnail" data-modal="modal1">
+                    <h3 class="product-title">Airtight Rice Container 5/10/15KG</h3>
+                    <p class="price">RM15.74-RM37.90</p>
+                    <p class="discount">-71%</p>
+                    <div class="badges">
+                        <span class="badge">Lowest Price Guarantee</span>
+                        <span class="badge">15-Day Free Return</span>
+                    </div>
+                    <p class="rating">⭐ 4.9 (5.1k sold)</p>
+                    <p class="location">Johor</p>
+                    <a href="https://my.shp.ee/QEHzb1b" class="buy-now">Buy Now</a>
+                </div>
+                <div class="modal" id="modal1">
+                    <div class="modal-content">
+                        <span class="close" id="close-modal">&times;</span>
+                        <img src="nasi.webp" class="enlarged-image">
+                        <img src="nasi 4.webp" class="enlarged-image">
+                        <img src="nasi 2" class="enlarged-image">
+                        <img src="nasi 3.webp" class="enlarged-image">
+                        <img src="nasi 5" class="enlarged-image">
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card">
+                    <img src="defroster.webp" alt="Product Thumbnail" class="thumbnail" data-modal="modal2">
+                    <h3 class="product-title">4 in 1 Defroster Multi-Functional</h3>
+                    <p class="price">RM16.58</p>
+                    <p class="discount">-58%</p>
+                    <div class="badges">
+                        <span class="badge">Lowest Price Guarantee</span>
+                        <span class="badge">15-Day Free Return</span>
+                    </div>
+                    <p class="rating">⭐ 4.7 (2.4k sold)</p>
+                    <p class="location">Selangor</p>
+                    <a href="https://my.shp.ee/zJQxw1w" class="buy-now">Buy Now</a>
+                </div>
+                <div class="modal" id="modal2">
+                    <div class="modal-content">
+                        <span class="close" id="close-modal">&times;</span>
+                        <img src="defroster.webp" class="enlarged-image">
+                        <img src="desfroster 2.webp" class="enlarged-image">
+                        <img src="defroster 3.webp" class="enlarged-image">
+                        <img src="defroster 4.webp" class="enlarged-image">
+                        <img src="defroster 5.webp" class="enlarged-image">
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card">
+                    <img src="barbecue.webp" alt="Product Thumbnail" class="thumbnail" data-modal="modal3">
+                    <h3 class="product-title">Swiss Thomas 2 In 1 Electric Barbecue Pan Cook Fry</h3>
+                    <p class="price">RM49.94</p>
+                    <p class="discount">-35%</p>
+                    <div class="badges">
+                        <span class="badge">15 Days Free Return</span>
+                        <span class="badge">100% Authentic</span>
+                    </div>
+                    <p class="rating">⭐ 4.6 (417 sold)</p>
+                    <p class="location">Selangor</p>
+                    <a href="https://my.shp.ee/hfARDem" class="buy-now">Buy Now</a>
+                </div>
+                <div class="modal" id="modal3">
+                    <div class="modal-content">
+                        <span class="close" id="close-modal">&times;</span>
+                        <img src="barbecue.webp" class="enlarged-image">
+                        <img src="barbecue 3.webp" class="enlarged-image">
+                        <img src="barbecue 4.webp" class="enlarged-image">
+                        <img src="barbecue 5.webp" class="enlarged-image">
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card">
+                    <img src="hand mixer.png" alt="Product Thumbnail" class="thumbnail" data-modal="modal4">
+                    <h3 class="product-title">Airbot Kitchen Hand Mixer KHM100 Red Portable USB Charging</h3>
+                    <p class="price">RM57.00</p>
+                    <p class="discount">-81%</p>
+                    <div class="badges">
+                        <span class="badge">15 Days Free Return</span>
+                        <span class="badge">100% Authentic</span>
+                    </div>
+                    <p class="rating">⭐ 4.9 (267 sold)</p>
+                    <p class="location">Selangor</p>
+                    <a href="https://my.shp.ee/kjftm4s" class="buy-now">Buy Now</a>
+                </div>
+                <div class="modal" id="modal4">
+                    <div class="modal-content">
+                        <span class="close" id="close-modal">&times;</span>
+                        <img src="hand mixer.png" class="enlarged-image">
+                        <img src="hand mixer 2.webp" class="enlarged-image">
+                        <img src="hand mixer 3.webp" class="enlarged-image">
+                        <img src="hand mixer 4.webp" class="enlarged-image">
+                        <img src="hand mixer 5.webp" class="enlarged-image">
+                    </div>
+                </div>
+
+                <!-- Product Card 5 -->
+                <div class="product-card">
+                    <img src="steamer.webp" alt="Product Thumbnail" class="thumbnail" data-modal="modal5">
+                    <h3 class="product-title">Electric Food Steamer 3 Tier Transparent Cover</h3>
+                    <p class="price">RM41.00</p>
+                    <p class="discount">-79%</p>
+                    <div class="badges">
+                        <span class="badge">Lowest Price Guarantee</span>
+                        <span class="badge">Fulfilled by Shopee</span>
+                    </div>
+                    <p class="rating">⭐ 4.9 (8k sold)</p>
+                    <p class="location">Selangor</p>
+                    <a href="https://my.shp.ee/iDhf1Jk" class="buy-now">Buy Now</a>
+                </div>
+                <div class="modal" id="modal5">
+                    <div class="modal-content">
+                        <span class="close" id="close-modal">&times;</span>
+                        <img src="steamer.webp" class="enlarged-image">
+                        <img src="steamer 2.webp" class="enlarged-image">
+                        <img src="steamer 3.webp" class="enlarged-image">
+                        <img src="steamer 4.webp" class="enlarged-image">
+                        <img src="steamer 5.webp" class="enlarged-image">
+                    </div>
+                </div>
+
+                <!-- Product Card 6 -->
+                <div class="product-card">
+                    <img src="pan.webp" alt="Product Thumbnail" class="thumbnail" data-modal="modal6">
+                    <h3 class="product-title">DESSINI ITALY 27CM Maifan Stone Grill Steak Frying Pan</h3>
+                    <p class="price">RM24.00</p>
+                    <p class="discount">-82%</p>
+                    <div class="badges">
+                        <span class="badge">Lowest Price Guarantee</span>
+                        <span class="badge">15 Days Free Returns</span>
+                    </div>
+                    <p class="rating">⭐ 4.9 (1.7k sold)</p>
+                    <p class="location">Selangor</p>
+                    <a href="https://my.shp.ee/Y3PQBb3" class="buy-now">Buy Now</a>
+                </div>
+                <div class="modal" id="modal6">
+                    <div class="modal-content">
+                        <span class="close" id="close-modal">&times;</span>
+                        <img src="pan.webp" class="enlarged-image">
+                        <img src="pan1.webp" class="enlarged-image">
+                        <img src="pan3.webp" class="enlarged-image">
+                        <img src="pan4.webp" class="enlarged-image">
+                        <img src="pan4.webp" class="enlarged-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+        document.getElementById("content").classList.toggle("shifted");
+    }
+
+    function goBack() {
+        window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips&trick.html";
+    }
+
+    // JavaScript for Modal Functionality
+    document.querySelectorAll('.thumbnail').forEach((thumbnail) => {
+        thumbnail.addEventListener('click', () => {
+            const modalId = thumbnail.getAttribute('data-modal'); // Get the corresponding modal ID
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'flex';
+
+            // Close the modal
+            modal.querySelector('.close').addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            // Close when clicking outside the modal
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

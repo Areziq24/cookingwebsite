@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5px;
+            font-size: 24px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .header a {
+            text-decoration: none;
+            color: white;
+            background-color: #575757;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+
+        .header a:hover {
+            background-color: #444;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 10px;
+            position: fixed;
+            top: 60px;
+            height: 100%;
+            z-index: 500;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .menu {
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            flex-direction: column;
+            background-color: #444;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-left: 10px;
+        }
+
+        .dropdown a {
+            padding: 10px;
+            margin: 5px 0;
+            white-space: nowrap;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        .menu > a {
+            cursor: pointer;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f4f4f4;
+            margin-left: 270px;
+            margin-top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .recipe-section {
+            margin-top: 20px;
+        }
+
+        .recipe-section h3 {
+            margin-bottom: 10px;
+        }
+
+        .recipe-section p {
+            margin: 5px 0;
+        }
+
+        .image-gallery {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .image-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .image-wrapper img {
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-aspect1 {
+            width: 300px;
+            height: 200px; /* 3:2 aspect ratio */
+        }
+
+        .image-aspect2 {
+            width: 250px;
+            height: 250px; /* 1:1 square aspect ratio */
+        }
+
+        .image-aspect3 {
+            width: 320px;
+            height: 180px; /* 16:9 aspect ratio */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Taste Maker Academy</h1>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/login.html">Log Out</a>
+    </div>
+
+  <div class="sidebar" id="sidebar">
+        <h2>Recipes</h2>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html">Home</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html">Menu</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/malaysia.html">Malaysia</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/japan.html">Japan</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/thailand.html">Thailand</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/korea.html">Korea</a>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/t4.html">Top 4 Food Inspiration</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefcelebrity.html">Celebrity Chefs</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefinfluncer.html">Chef Influencers</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/student.html">Student Recipes</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/beverage.html">Beverage Recipes</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips&trick.html">Tips and Trick</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips.html">Tips</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/trick.html">Trick</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/kitchenutensil.html">Kitchen Utensils</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/dessert.html">Desserts</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/fb.html">Feedback</a>
+    </div>
+
+
+    <div class="content">
+        <h1>Welcome to the Recipe Website</h1>
+        <p>Select a country or menu item from the sidebar to explore recipes.</p>
+
+        <div class="image-gallery">
+            <h2>Explore Recipes</h2>
+            <div class="image-wrapper">
+                <img src="cook.jpg" alt="Cook image 1" class="image-aspect1">
+                <img src="cook.jpg" alt="Cook image 2" class="image-aspect2">
+                <img src="cook.jpg" alt="Cook image 3" class="image-aspect3">
+            </div>
+        </div>
+
+        <div class="recipe-section" id="america">
+            <h3>American Recipes</h3>
+            <p>- Cheeseburger</p>
+            <p>- Apple Pie</p>
+            <p>- BBQ Ribs</p>
+        </div>
+
+        <div class="recipe-section" id="japan">
+            <h3>Japanese Recipes</h3>
+            <p>- Sushi</p>
+            <p>- Ramen</p>
+            <p>- Tempura</p>
+        </div>
+
+        <div class="recipe-section" id="thailand">
+            <h3>Thai Recipes</h3>
+            <p>- Pad Thai</p>
+            <p>- Tom Yum Goong</p>
+            <p>- Green Curry</p>
+        </div>
+
+        <div class="recipe-section" id="korea">
+            <h3>Korean Recipes</h3>
+            <p>- Kimchi</p>
+            <p>- Bibimbap</p>
+            <p>- Bulgogi</p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birria Recipe</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+    font-size: 1.0em; /* Adjust the size as needed */
+
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8em;
+            background-color: #575757;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .header a:hover {
+            background-color: #444;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 230px;
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .menu {
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #f1f1f1;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown a {
+            padding: 8px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .dropdown a:hover {
+            background-color: #575757;
+        }
+
+        /* Content styles */
+        .content {
+            flex: 1;
+            padding: 20px 100px;
+            margin-left: 0;
+            transition: margin-left 0.3s;
+        }
+
+        .content.shifted {
+            margin-left: 250px;
+        }
+
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            justify-content: space-evenly;
+        }
+
+        .course-details {
+            flex: 1 1 calc(45% - 20px);
+            max-width: calc(45% - 20px);
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: black;
+            text-align: left;
+        }
+
+    .course-details img {
+    width: 100%;
+    height: 250px; /* You can adjust the height as needed */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+        .back-button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #575757;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+        }
+
+        /* Sidebar toggle button */
+        .sidebar-toggle {
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+        }
+
+        .sidebar-toggle img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <img src="menu.png" alt="Menu">
+        </button>
+        <h1>Taste Maker Academy</h1>
+        <a href="login.html">Log Out</a>
+    </div>
+
+    <!-- Main container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+        <h2>Recipes</h2>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html">Home</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html">Menu</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/malaysia.html">Malaysia</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/japan.html">Japan</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/thailand.html">Thailand</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/korea.html">Korea</a>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/t4.html">Top 4 Food Inspiration</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefcelebrity.html">Celebrity Chefs</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefinfluncer.html">Chef Influencers</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/student.html">Student Recipes</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/shortrecipe.html">Short Recipes</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips&trick.html">Tips and Trick</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips.html">Tips</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/trick.html">Trick</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/kitchenutensil.html">Kitchen Utensils</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/dessert.html">Desserts</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/fb.html">Feedback</a>
+    </div>
+
+        <!-- Content -->
+        <div class="content" id="content">
+            <div class="content-container">
+                <div id="course1" class="course-details">
+                    <img src="salt.jpg" alt="Food too salty">
+                    <h1>Food is too salty</h1>
+                    <ul>
+                        <li>Dilution: Add more of the main ingredients to balance out the salt. For example, if it's a soup or stew, you can add more water, broth, or unsalted ingredients like vegetables or meat.</li>
+                        <li>Potatoes: Adding peeled, raw potatoes to your dish can absorb some of the salt. Let them simmer in the dish for about 15-20 minutes, then remove them.</li>
+                        <li>Acidic Ingredients: Adding a splash of vinegar, lemon juice, or tomatoes can help counteract the saltiness.</li>
+                        <li>Dairy: Stirring in some milk, cream, or unsalted yogurt can mellow out the saltiness.</li>
+                        <li>Sugar: A small amount of sugar or honey can balance out the saltiness. Be careful not to add too much, though.</li>
+                        <li>Bread: For soups or stews, adding a piece of bread and letting it soak can help absorb the salt. Remove the bread before serving.</li>
+                    </ul>
+                </div>
+
+                <div id="course2" class="course-details">
+                    <img src="kekxnaik.jpg" alt="Bread not rising">
+                    <h1>Dough for bread or cakes doesn't rise</h1>
+                    <ul>
+                        <li>Correct Type of Flour: Make sure you are using the right type of flour for your cake or bread. Cake flour is typically used for cakes, while bread flour is better for bread.</li>
+                        <li>Proper Ingredient Ratios: Follow the recipe accurately, especially the ratios of flour, sugar, butter, and eggs. Cream the sugar and butter until they are light and fluffy before adding the eggs.</li>
+                        <li>Correct Oven Temperature: An oven that is too hot or too cold can cause issues. Use an oven thermometer to ensure the right temperature.</li>
+                        <li>Proper Baking Time: Don't bake for too long or too short a time. Follow the recommended baking time in the recipe and check for doneness with a toothpick or skewer.</li>
+                        <li>Proper Mixing Technique: Avoid overmixing or undermixing the batter. Overmixing can cause too much gluten to form, making the cake or bread tough.</li>
+                        <li>Room Temperature Ingredients: Ensure all ingredients, especially butter and eggs, are at room temperature before you start mixing.</li>
+                    </ul>
+                </div>
+
+                <div id="course2" class="course-details">
+                    <img src="whipped.jpg" alt="whipped cream">
+                    <h1>Dough for bread or cakes doesn't rise</h1>
+                    <ul>
+                        <li>Start with the right ingredients. For fluffy, stable whipped cream, use cartons labeled "heavy cream," "whipping cream," or "heavy whipping cream." (Save the light cream for coffee.) For sweetness, add 2 tablespoons granulated sugar per cup of cream before beating.</li>
+                        <li>Watch carefully. In a chilled bowl with an electric mixer on high, beat chilled cream and sugar until the beaters leave visible lines when drawn across the cream. Reduce mixer speed to medium-low and continue to beat until soft peaks form. (When you hold up the beaters, the cream should stand up, and then flop over.)</li>
+                        <li>If you overwhip, don't panic. Add a splash of fresh, unwhipped cream to the curdled lumps and fold it in with a rubber spatula. Repeat as needed until the mixture smooths out.</li>
+                    </ul>
+                </div>
+
+                <div id="course3" class="course-details">
+                    <img src="bawang.jpg" alt="Sauce too thin">
+                    <h1>How to chop garlics</h1>
+                    <ol>
+                        <li>Use the tip of a chef's knife to slice off the hard root of each clove. (This makes the skin peel away more easily.)</li>
+                        <li>Place a clove under the flat side of the knife, with the blade facing away from you. Press the heel of your palm or your fist down on the knife until you feel the clove give way. Slip off and discard the skin.</li>
+                        <li>Gather the peeled cloves, hold your knife by the handle, and place your other, nondominant hand on top of the blade. Rock the knife up and down through the cloves (with the tip staying on the cutting board). Chop until the garlic is the size you want.</li>
+                    </ol>
+                </div>
+
+                <div id="course3" class="course-details">
+                    <img src="kuahcair.jpg" alt="Sauce too thin">
+                    <h1>The cooking sauce is too thin</h1>
+                    <ol>
+                        <li>Cornstarch Slurry: Mix 1-2 tablespoons of cornstarch with an equal amount of cold water to form a slurry. Stir it into the sauce and let it simmer until it thickens.</li>
+                        <li>Flour and Butter Paste (Beurre Manié): Knead together equal parts of softened butter and flour until you have a smooth paste. Stir small amounts into the sauce and cook until it thickens.</li>
+                        <li>Reduce the Sauce: Simmer the sauce over low to medium heat to allow excess liquid to evaporate. Stir frequently to prevent burning and to ensure even thickening.</li>
+                        <li>Add Pureed Vegetables: Blend cooked vegetables like potatoes, carrots, or tomatoes and stir the puree into the sauce. This will not only thicken the sauce but also enhance its flavor.</li>
+                        <li>Add Cream or Coconut Milk: For creamy sauces, adding a bit of heavy cream or coconut milk can thicken the consistency and add richness.</li>
+                        <li>Use Egg Yolks: For certain sauces, you can whisk in beaten egg yolks. Temper the egg yolks with a bit of hot sauce before adding them to prevent curdling.</li>    
+                    </ol>
+                </div>
+
+                <div id="course4" class="course-details">
+                    <img src="dagingtakempuk.jpg" alt="Meat not tender">
+                    <h1>The meat is not tender</h1>
+                    <ol>
+                        <li>Cook at a Lower Temperature: Sometimes, slow and low cooking can help break down the tough fibers in the meat. Consider lowering the heat and cooking for a longer period.</li>
+                        <li>Add Acidic Ingredients: Ingredients like vinegar, lemon juice, or tomatoes can help break down the tough fibers. Try adding a bit to your cooking liquid.</li>
+                        <li>Use a Meat Tenderizer: Physically tenderizing the meat with a mallet can break down tough muscle fibers.</li>
+                        <li>Marinate: Marinating meat in acidic ingredients (like buttermilk, yogurt, or a vinegar-based marinade) can also help tenderize it. Allow it to marinate for several hours or overnight.</li>
+                        <li>Braising: This method involves cooking meat slowly in a covered pot with some liquid. The steam and slow cooking process helps make the meat tender.</li>
+                        <li>Pressure Cooker: If you have a pressure cooker, it can greatly reduce cooking time while making the meat tender.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+            document.getElementById("content").classList.toggle("shifted");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+body {
+        font-family: Arial, sans-serif;
+        color: white;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 300vh; /* Increased height */
+        background-image: url('background.jpg');
+        background-size: 120%; /* Zoom out the background image */
+        background-position: center;
+        background-repeat: repeat; /* Changed to repeat */
+        background-attachment: fixed; /* Added fixed attachment */
+    }
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  background-color:#525B76;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 20px;
+  position: relative;
+  background-image: url('batu.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.circle-photo {
+    width: 200px; 
+    height: 200px;
+    border-radius: 50%; 
+    object-fit: cover;
+     margin: auto;
+}
+.title {
+  color: #fff9f9;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: auto;
+  font-size: 18px;
+  border-radius: 5px;
+}
+a {
+  text-decoration: none;
+  font-size: 20px;
+  color: rgb(252, 252, 252);
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+
+.social-icons a {
+  margin: 0 10px;
+  color:#201E50;
+  font-size: 24px;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #000;
+}
+
+.header {
+  background-color: rgba(51, 51, 51, 0.8);
+  color: white;
+  padding: 2% 2%;
+  text-align: center;
+  font-size: 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: inherit;
+  margin-left: 80px;
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.5em;
+  background-color: #575757;
+  padding: 0.2em 0.2em;
+  border-radius: 5px;
+  margin-top: 1em;
+  display: inline-block;
+}
+
+.header a:hover {
+  background-color: #444;
+}
+
+        .sidebar {
+            width: 230px;
+            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background */
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            transition: left 0.3s ease;
+            z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+.sidebar a:hover {
+  background-color: #575757;
+}
+
+.menu {
+  position: relative;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #444;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #f1f1f1;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.menu:hover .dropdown {
+  display: block;
+}
+
+.dropdown a {
+  padding: 8px;
+  margin: 5px 0;
+  display: block;
+  border-radius: 5px;
+}
+
+.dropdown a:hover {
+  background-color: #575757;
+}
+
+.content {
+  flex: 1;
+  padding: 20px 100px;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-left: 0;
+  transition: margin-left 0.3s;
+}
+
+.content.shifted {
+  margin-left: 250px;
+}
+
+.sidebar-toggle {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1001;
+}
+
+.sidebar-toggle img {
+  width: 30px;
+  height: 30px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <button class="sidebar-toggle" onclick="toggleSidebar()">
+    <img src="menu.png" alt="Menu">
+  </button>
+  <h1>Taste Maker Academy</h1>
+  <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/login.html">Log Out</a>
+</div>
+
+ <div class="sidebar" id="sidebar">
+        <h2>Recipes</h2>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html">Home</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html">Menu</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/malaysia.html">Malaysia</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/japan.html">Japan</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/thailand.html">Thailand</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/korea.html">Korea</a>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/t4.html">Top 4 Food Inspiration</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefcelebrity.html">Celebrity Chefs</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefinfluncer.html">Chef Influencers</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/student.html">Student Recipes</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/beverage.html">Beverage Recipes</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips&trick.html">Tips and Trick</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips.html">Tips</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/trick.html">Trick</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/kitchenutensil.html">Kitchen Utensils</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/dessert.html">Desserts</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/fb.html">Feedback</a>
+    </div>
+
+<div class="content" id="content">
+  <h2 style="text-align:center; margin: 20px 0;">INFLUENCER CHEF</h2>
+  
+  <div class="recipe-container">
+    <div class="card">
+      <img src="khairul image.jpg" alt="Khairul Aming" class="circle-photo"> 
+      <br> 
+      <br>
+      <video width="100%" controls>
+        <source src="khairul aming.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <h1>Khairul Aming</h1>
+      <p class="title">TikTok Influencer & Founder of Sambal Nyet & Dendeng Nyet</p>
+      <p>Khairul Aming, also called Khairul Amin Kamarulzaman, is a well-known Malaysian influential chef and entrepreneur. He rose to prominence during Ramadan with his "30 Hari 30 Resepi" (30 Days 30 Recipes) series, in which he shared a new recipe every day. His Instagram account has almost 3.7 million followers, thanks to his engaging and simple culinary videos.</p>
+      <div class="social-icons" style="margin: 24px 0;">
+        <a href="https://www.instagram.com/khairulaming?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@khairulaming?is_from_webapp=1&sender_device=pc"target="_blank"><i class="fa-brands fa-tiktok"></i></i></a>
+        <a href="https://x.com/khairulaming" target="_blank"><i class="fa-brands fa-twitter"></i></a>   
+        <a href="" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+      <button><a href="https://khairulaming.my/category/resipi/" target="_blank">VIEW MORE</a></button>
+    </div>
+  </div>
+  
+  <br>
+  <br>
+  
+  <div class="recipe-container">
+    <div class="card">
+      <img src="che sayang.jpg" alt="Che Sayang" class="circle-photo"> 
+      <br>
+      <br>
+      <video width="100%" controls>
+        <source src="che sayang.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <h1>Che Sayang</h1>
+      <p class="title">TikTok Influencer & Content Creator </p>
+      <p>Che Sayang, whose real name is Qayyum Halid, is a popular Malaysian social media influencer and content creator known for his culinary videos. He gained recognition through his "Che Sayang Kitchen" on TikTok, where he shares a variety of recipes and cooking tips. His engaging and approachable style has earned him a large following and numerous accolades, including the Creator of the Year award at the TikTok Awards Malaysia 2024.</p>
+      <div class="social-icons" style="margin: 24px 0;">
+        <a href="https://www.instagram.com/chesayangkitchen?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@chesayang_kitchen"target="_blank"><i class="fa-brands fa-tiktok"></i></i></a>
+        <a href="https://x.com/CheSayang_" target="_blank"><i class="fa-brands fa-twitter"></i></a>   
+        <a href="https://www.facebook.com/p/Che-Sayang-Kitchen-100093052204675/?locale=ms_MY" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+      <button><a href="https://youtube.com/@chesayangkitchen?si=ogGhjnVjVghIFmk1" target="_blank">VIEW MORE</a></button>
+    </div>
+  </div>
+  
+  <br>
+  <br>
+  
+  <div class="recipe-container">
+    <div class="card">
+      <img src="chenom.jpg" alt="Che Nom" class="circle-photo"> 
+      <br>
+      <br>
+      <video width="50%" controls>
+        <source src="chenom.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <h1>Che Nom</h1>
+      <p class="title">TikTok Influencer & Content Creator </p>
+      <p>Che Nom, a Malaysian YouTuber and recipe content creator, shares her culinary journey through her channel, Resepi Che Nom. Born Normah Bakar, she aims to inspire home cooks and small business owners to create authentic Malaysian dishes, with over 2.23 million subscribers and 382 million views on YouTube.</p>
+      <div class="social-icons" style="margin: 24px 0;">
+        <a href="https://www.instagram.com/che_nom/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@chenom_tiktok?lang=en"target="_blank"><i class="fa-brands fa-tiktok"></i></i></a>
+        <a href="https://x.com/realCheNom" target="_blank"><i class="fa-brands fa-twitter"></i></a>   
+        <a href="https://www.facebook.com/resepichenom" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+      <button><a href="https://www.youtube.com/@CheNom" target="_blank">VIEW MORE</a></button>
+    </div>
+  </div>
+  
+  <br>
+  <br>
+  
+  <div class="recipe-container">
+    <div class="card">
+      <img src="hamdan.jpeg" alt="Hamdan Mubarak" class="circle-photo"> 
+      <br>
+      <br>
+      <video width="50%" controls>
+        <source src="hamdanmubarak.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <h1>Hamdan Mubarak</h1>
+      <p class="title">TikTok Influencer & Content Creator </p>
+      <p>Hamdan Mubarak, a Malaysian chef and social media personality, has gained popularity with his TikTok videos. His signature style, "Bismillah," means "In the name of God," adds a personal touch to his content. He shares a variety of recipes, from traditional Malaysian dishes to creative, easy-to-make options. His charismatic personality and sense of humor have earned him a large following on TikTok. His mission is to make cooking accessible and enjoyable for everyone.</p>
+      <div class="social-icons" style="margin: 24px 0;">
+        <a href="https://www.instagram.com/hamdanmubarak_/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@hamdanmubarak_?lang=en"target="_blank"><i class="fa-brands fa-tiktok"></i></i></a>
+        <a href="https://my.linkedin.com/in/hamdan-mubarak-31352421a" target="_blank"><i class="fa-brands fa-linkedin"></i></a>   
+        <a href="https://www.facebook.com/hamdanmubarak.bismillah" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+      <button><a href="https://www.youtube.com/@HamdanMubarak" target="_blank">VIEW MORE</a></button>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleSidebar() {
+  var sidebar = document.getElementById("sidebar");
+  var content = document.getElementById("content");
+  sidebar.classList.toggle("open");
+  content.classList.toggle("shifted");
+}
+</script>
+
+</body>
+</html>

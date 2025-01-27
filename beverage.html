@@ -1,0 +1,514 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beverage Recipes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 760vh;
+            background-image: url('background.jpg');
+            background-size: 120%; /* Zoom out the background image */
+            background-position: center;
+            background-repeat: repeat;
+            background-attachment: fixed; /* Added fixed attachment */
+            color: white;
+        }
+
+        .header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 2% 2%;
+            text-align: center;
+            font-size: 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: inherit;
+            margin-left: 80px;
+            color: white;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.5em;
+            background-color: #575757;
+            padding: 0.2em 0.2em;
+            border-radius: 5px;
+            margin-top: 1em;
+            display: inline-block;
+        }
+
+        .header a:hover {
+            background-color: #444;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 230px;
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+ .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .menu {
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #f1f1f1;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown a {
+            padding: 8px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .dropdown a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px 100px;
+            background-color: rgba(0, 0, 0, 0.5);
+            margin-left: 0;
+            transition: margin-left 0.3s;
+        }
+
+        .content.shifted {
+            margin-left: 250px;
+        }
+
+        .recipe-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .recipe-container {
+            max-width: 48%;
+            margin: 20px 0;
+            padding: 35px; /* Ensure consistent padding */
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .recipe-container .blur-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('kayu.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        .recipe-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .recipe-text {
+            margin-top: 15px;
+            color: white;
+        }
+
+        .recipe-text h1 {
+            font-size: 28px;
+            margin: 10px 0;
+            color: white;
+        }
+
+        .recipe-text p {
+            font-size: 16px;
+            color: #FFFFFF;
+            line-height: 1.6;
+        }
+
+        .recipe-author {
+            margin-top: 10px;
+            font-size: 14px;
+            color: white;
+            text-align: right;
+        }
+
+        .view-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #575757;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .view-button:hover {
+            background-color: #444;
+        }
+
+        .sidebar-toggle {
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+        }
+
+        .sidebar-toggle img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <img src="menu.png" alt="Menu">
+        </button>
+        <h1>Cooking School</h1>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/login.html">Log Out</a>
+    </div>
+<div class="content" id="content">
+  <h2 style="text-align:center; margin: 20px 0;">BEVERAGE RECIPES</h2>
+
+        <div class="main-container">
+       <div class="sidebar" id="sidebar">
+        <h2>Recipes</h2>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html">Home</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html">Menu</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/malaysia.html">Malaysia</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/japan.html">Japan</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/thailand.html">Thailand</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/korea.html">Korea</a>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/t4.html">Top 4 Food Inspiration</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefcelebrity.html">Celebrity Chefs</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefinfluncer.html">Chef Influencers</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/student.html">Student Recipes</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/beverage.html">Beverage Recipes</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips&trick.html">Tips and Trick</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips.html">Tips</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/trick.html">Trick</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/kitchenutensil.html">Kitchen Utensils</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/dessert.html">Desserts</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/fb.html">Feedback</a>
+    </div>
+
+        <div class="content" id="content">
+            <div class="recipe-row">
+                <div class="recipe-container" style="background-image: url('kayu.jpg'); background-size: cover; background-position: center;">
+                    <div class="blur-background"></div>
+                    <div class="recipe-image">
+                        <img src="teh.jpg" alt="teh tarik">
+                    </div>
+                    <div class="recipe-text">
+                        <h1>TEH TARIK KAW</h1>
+                        <p>This refreshing beverage is made with freshly brewed tea, fragrant spices, and milk. Perfect for any time of day!</p>
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            <li>4 pieces of kaw tea bags</li>
+                            <li>2 tablespoons of mosque-branded fragrant tea</li>
+                            <li>1 1/2 tablespoons vanilla essence</li>
+                            <li>1 1/2 cans of liquid milk</li>
+                            <li>1 tablespoon of sugar</li>
+                            <li>salt</li>
+                            <li>6-8 cloves</li>
+                        </ul>
+                        <h3>Step:</h3>
+                        <ol>
+                            <li>In a medium-sized pot, heat the water and vanilla essence.</li>
+                            <li>Then, add the kaw tea bags and mosque-branded fragrant tea, and bring to a boil until the water is both warm and boiling.</li>
+                            <li>Stir in the evaporated milk and sugar syrup, then add the condensed milk to achieve the desired sweetness level.</li>
+                            <li>Cook tea till it bubbles, stirring occasionally. Add salt and cloves for a fatty flavour. Reduce the heat for slower cooking.</li>
+                        </ol>
+                        <p class="recipe-author">- allrecipes</p>
+                    </div>
+                </div>
+
+                <div class="recipe-container" style="background-image: url('kayu.jpg'); background-size: cover; background-position: center;">
+                    <div class="blur-background"></div>
+                    <div class="recipe-image">
+                        <img src="smoothie.jpg" alt="smoothie">
+                    </div>
+                    <div class="recipe-text">
+                        <h1>PEANUT BUTTER BANANA SMOOTHIE</h1>
+                        <p>This peanut butter banana smoothie is great for any meal of the day, including breakfast, lunch, dessert, and snacks.</p>
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            <li>2 bananas, broken into chunks</li>
+                            <li>2 cups milk</li>
+                            <li>½ cup peanut butter</li>
+                            <li>2 tablespoons honey, or to taste</li>
+                            <li>2 cups ice cubes</li>
+                        </ul>
+                        <h3>Step:</h3>
+                        <ol>
+                            <li>Gather all ingredients.</li>
+                            <li>Place bananas, milk, peanut butter, honey, and ice cubes in a blender.</li>
+                            <li>Blend until smooth, about 30 seconds.</li>
+                            <li>Enjoy!</li>
+                        </ol>
+                        <p class="recipe-author">- allrecipes</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recipe-row">
+                <div class="recipe-container" style="background-image: url('kayu.jpg'); background-size: cover; background-position: center;">
+                    <div class="blur-background"></div>
+                    <div class="recipe-image">
+                        <img src="orangesoda.jpg" alt="oren soda">
+                    </div>
+                    <div class="recipe-text">
+                        <h1>ORANGE JUICE SODA</h1>
+                        <p>Experience the perfect blend of fresh orange juice and fizzy soda. Brighten your day with this sparkling delight and savor every zesty sip.</p>
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            <li>1 box of orange juice</li>
+                            <li>1 bottle of ice cream soda</li>
+                            <li>1 lemon</li>
+                            <li>Mint Pudina</li>
+                            <li>Ice cube</li>
+                        </ul>
+                        <h3>Step:</h3>
+                        <ol>
+                            <li>Put some ice cube into the jug.</li>
+                            <li>Pour half of the orange juice into the jug.</li>
+                            <li>Then, pour half of the bottle of ice cream soda.</li>
+                            <li>Put some slice of lemon.</li>
+                            <li>Add some of mint pudina, stir it and and the menu is ready to be served.</li>
+                        </ol>
+                        <p class="recipe-author">- Khairul Aming</p>
+                    </div>
+                </div>
+
+                <div class="recipe-container" style="background-image: url('kayu.jpg'); background-size: cover; background-position: center;">
+                    <div class="blur-background"></div>
+                    <div class="recipe-image">
+                        <img src="dalgona.jpg" alt="dalgona coffee">
+                    </div>
+                    <div class="recipe-text">
+                        <h1>DALGONA COFFEE</h1>
+                        <p>Whipped to perfection, this creamy coffee sensation combines rich, frothy goodness with a smooth coffee kick. It's the ultimate luxurious treat for your taste buds. Elevate your coffee experience and enjoy every sip of this delightful beverage.</p>
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            <li>2 tablespoons of instant coffee</li>
+                            <li>2 tablespoons of sugar</li>
+                            <li>A little bit of water</li>
+                            <li>Ice cube</li>
+                            <li>Cold milk</li>
+                        </ul>
+                        <h3>Step:</h3>
+                        <ol>
+                            <li>In a bowl, mix 2 tablespoons of instant coffee, 2 tablespoons of sugar, and a little bit of water.</li>
+                            <li>Start whipping the ingredients until they reach a fluffy consistency and light bit of water.</li>
+                            <li>Fill balf of your favourite cup with ice and about 2/3 with cold milk.</li>
+                            <li>Add the whipped mixture on top of the milk and ice.</li>
+                            <li>Give it a good swirl to mix.</li>
+                        </ol>
+                        <p class="recipe-author">- Liz Happybeans</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recipe-row">
+                <div class="recipe-container" style="background-image: url('kayu.jpg'); background-size: cover; background-position: center;">
+                    <div class="blur-background"></div>
+                    <div class="recipe-image">
+                        <img src="sirap.jpg" alt="sirap">
+                    </div>
+                    <div class="recipe-text">
+                        <h1>BASIL LYCHEE SYRUP</h1>
+                        <p>Water is simple and quick to prepare and can quench thirst. The addition of basil also cools the body. It's really comfortable to drink cold 🧊</p>
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            <li>1/4 cup of sirap ros Jalen</li>
+                            <li>water</li>
+                            <li>2 spoon of soaked basil</li>
+                            <li>lychee</li>
+                            <li>ice cubes</li>
+                        </ul>
+                        <h3>Step:</h3>
+                        <ol>
+                            <li>Add ice cubes to the glass.Add some lychees.</li>
+                            <li>Pour thick syrup, a little lychee syrup in a can, add basil. Add more ice cubes if necessary. Adjust the taste by adding cold water (if sweet).Garnish with lychee fruit on top.</li>
+                            <li>Enjoy!</li>
+                        </ol>
+                        <p class="recipe-author">- Cookpad</p>
+                    </div>
+                </div>
+
+                <div class="recipe-container" style="background-image: url('kayu.jpg'); background-size: cover; background-position: center;">
+                    <div class="blur-background"></div>
+                    <div class="recipe-image">
+                        <img src="avocado.jpg" alt="avocado">
+                    </div>
+                    <div class="recipe-text">
+                        <h1>JUICE AVOCADO</h1>
+                        <p>A creamy, buttery drink that can be made in under ten minutes!</p>
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            <li>1 Avocado ripe</li>
+                            <li>1 cup of milk</li>
+                            <li>1 tbsp sugar or honey</li>
+                        </ul>
+                        <h3>Step:</h3>
+                        <ol>
+                            <li>Slice the avocado in half lengthwise. To release the pulp from the pit, twist the fruit. Scoop out the meat using a spoon after removing the pit.</li>
+                            <li>Put the avocado flesh in a blender. Put the sweetener in. Blend thoroughly after adding half a cup of milk. Blend one more after adding the remaining milk. This guarantees a creamy, rich mouthfeel. You can experiment with adding a few ice cubes.</li>
+                            <li>Serve chilled and enjoy!</li>
+                        </ol>
+                        <p class="recipe-author">- Organic Facts</p>
+                          </div>
+    </div>
+</div>
+<div class="recipe-row">
+    <div class="recipe-container" style="background-image: url('kayu.jpg'); background-size: cover; background-position: center;">
+        <div class="blur-background"></div>
+        <div class="recipe-image">
+            <img src="melon.jpg" alt="watermelon soda">
+        </div>
+        <div class="recipe-text">
+            <h1>WATERMELON SODA</h1>
+            <p>A refreshing and fizzy drink made with fresh watermelon juice and soda.</p>
+            <h3>Ingredients:</h3>
+            <ul>
+                <li>2 cups watermelon juice</li>
+                <li>1 cup soda water</li>
+                <li>1 tablespoon lime juice</li>
+                <li>Ice cubes</li>
+                <li>Mint leaves for garnish</li>
+            </ul>
+            <h3>Step:</h3>
+            <ol>
+                <li>In a pitcher, combine watermelon juice, soda water, and lime juice. Stir well.</li>
+                <li>Fill glasses with ice cubes and pour the watermelon soda mixture over the ice.</li>
+                <li>Garnish with mint leaves and serve immediately.</li>
+                <li>Enjoy!</li>
+            </ol>
+            <p class="recipe-author">- Your Recipe Source</p>
+                    </div>
+                </div>
+
+            <div class="recipe-container" style="background-image: url('kayu.jpg'); background-size: cover; background-position: center;">
+    <div class="blur-background"></div>
+    <div class="recipe-image">
+        <img src="keladi.jpg" alt="keladi float">
+    </div>
+    <div class="recipe-text">
+                        <h1>KELADI FLOAT</h1>
+        <p>A delightful blend of taro and ice cream, perfect for a refreshing treat on a hot day.</p>
+        <h3>Ingredients:</h3>
+        <ul>
+                     <li>1 cup taro puree</li>
+            <li>2 scoops vanilla ice cream</li>
+            <li>1 cup milk</li>
+            <li>Ice cubes</li>
+                        </ul>
+                        <h3>Step:</h3>
+                        <ol>
+            <li>Pour the mixture into a glass.</li>
+            <li>Add scoops of vanilla ice cream on top.</li>
+            <li>Serve immediately and enjoy!</li>
+                        </ol>
+                        <p class="recipe-author">- Organic Facts</p>
+                          </div>
+    </div>
+</div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+            document.getElementById("content").classList.toggle("shifted");
+        }
+    </script>
+</body>
+</html>

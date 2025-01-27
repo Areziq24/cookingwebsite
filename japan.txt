@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japan Recipe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background:url(japann.jpg);
+            background-repeat:no-repeat;
+            background-size:cover;
+            background-attachment:fixed;
+            border: 2px solid;
+            
+        }
+        .recipe-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #B6A6CA;
+            background-color: #B6A6CA;
+        }
+        .recipe-image img {
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+        .recipe-text {
+            margin-top: 15px;
+        }
+        .recipe-text h1 {
+            font-size: 28px;
+            margin: 10px 0;
+        }
+        .recipe-text p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .recipe-author {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+<div class="recipe-container">
+    <div class="recipe-image">
+        <a href="https://youtu.be/joweUxpHaqc?si=nfX8dDG-iZL9OaEx"><img src="sushii.jpg" alt="sushi" style="width:800px;height:500px;"></a>
+    </div>
+
+    <div class="recipe-text">
+        <h1>Sushi 寿司</h1>
+            "Use this simple homemade sushi recipe to learn how to make sushi rolls, also known as maki rolls. You have complete control over the fillings and toppings, so use whatever stuff you choose!"
+        </p>
+        <a href="https://www.allrecipes.com/article/how-to-make-sushi-rolls/">See more</a>
+        <p>
+        <p class="recipe-author">
+            - tastykitchen
+        </p>
+    </div>
+</div>
+
+
+<div class="recipe-container">
+    <div class="recipe-image">
+        <a href="https://youtu.be/rCvDPxahmyY?si=sRiGaeCRQQ-h9Jp8"><img src="takoyaki.jpg" alt="takoyaki" style="width:800px;height:500px;"></a>
+    </div>
+
+    <div class="recipe-text">
+        <h1>Takoyaki たこ焼き</h1>
+            "takoyaki is a symbol of Japanese street food. These delicious octopus-filled dough balls are a tempting treat for residents and tourists alike.
+
+        </p>
+        <a href="https://www.justonecookbook.com/takoyaki-recipe/">See more</a>
+        <p>
+        <p class="recipe-author">
+            - just one cook book
+        </p>
+    </div>
+</div>
+
+<div class="recipe-container">
+    <div class="recipe-image">
+        <a href="https://youtu.be/UuOI5uT00T4?si=E0MZKoQmCSLwsTfY"><img src="japanese curry.jpg" alt="japanese" style="width:800px;height:500px;"></a>
+    </div>
+
+    <div class="recipe-text">
+        <h1>Japanese curry 日本のカレー</h1>
+            "A tasty weeknight supper option is this dish for Japanese chicken curry! This Japanese take on curry is a family favorite, including tender chicken, carrots, and potatoes cooked in a creamy, flavorful curry sauce. 
+
+        </p>
+        <a href="https://www.allrecipes.com/gallery/easy-japanese-recipes/">See more</a>
+        <p>
+        <p class="recipe-author">
+            - just one cook book
+        </p>
+    </div>
+</div>
+
+<div class="recipe-container">
+    <div class="recipe-image">
+        <a href="https://youtu.be/agaSZVYrr2c?si=6D6FkeG81Y7HV8ab"><img src="omelette.jpg" alt="omelette" style="width:800px;height:500px;"></a>
+    </div>
+
+    <div class="recipe-text">
+        <h1>Omurice オムライス</h1>
+            "Omurice, which translates to "omelet and rice" in Japanese, is a prime illustration of how Western food has influenced Japanese cooking. It consists of an omelet wrapped around fried rice and topped with ketchup.
+        </p>
+        <a href="https://www.thespruceeats.com/omelet-rice-2031329">See more</a>
+        <p>
+        <p class="recipe-author">
+            - the spruce eats
+        </p>
+    </div>
+</div>
+
+
+</body>
+</html>

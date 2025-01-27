@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Desserts of the Week</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 150px;
+            background-image: url('background.jpg');
+       background-size: 120%;
+            background-position: center;
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .dessert {
+            background-color: white;
+            border-radius: 30px;
+            padding: 15px;
+            width: 600px;
+            margin: 10px;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+        }
+        .dessert img {
+            width: 100%;
+            height: 100;
+            border-radius: 100px;
+        }
+        .dessert h3 {
+            margin-top: 10px;
+            color: #b30000;
+        }
+        .dessert p {
+            font-size: 15px;
+            color: #666;
+        }
+        .price {
+            font-weight: bold;
+            color: #333;
+        }
+
+        #more {display: none;}
+    </style>
+
+
+
+    <div class="menu-container">
+        <div class="dessert">
+            <img src="almondc.jpg" alt="almond cluster">
+            <h3>ALMOND CLUSTER</h3>
+            <h4>INGREDIENTS</h4> 
+            <p>🍫 1kg sliced ​​almonds</p> 
+            <p>🍫 1kg beryl’s milk chocolate coin</p><span id="dots">
+       
+    <p>HOW TO COOK:</p></span><span id="more">
+    <ol>
+    <li>Take the almonds and pour them into a baking dish. Bake in the oven or fry in a pan until brown.</li><br>
+    <li>Then melt the chocolate using the double-boil method. You can also melt the chocolate using the microwave.</li><br>
+    <li>Once ready, cool both ingredients first.</li><br>
+    <li>When cool, combine both ingredients and mix well. Make sure the chocolate is evenly coated on the almonds.</li><br>
+    <li>Spoon the almonds into a paper cup or on parchment paper.</li><br>
+    <li>Chill the cookies in the refrigerator for 10-15 minutes to harden them.</li><br>
+    <li>Remove and arrange in a container. Almond Cluster is ready to enjoy.</li><br></ol></span></p>
+    <button onclick="myFunction()" id="myBtn">Read more</button>
+      
+        </div>
+
+
+        <div class="dessert">
+            <img src="sm.jpg" alt="strawberry mochi">
+            <h3>STRAWBERRY MOCHI</h3>
+            <p>🍓 Mochiko sweet rice flour</p>
+            <p>🍓 Water</p>
+            <p>🍓 Red Dye</p>
+            <p>🍓 Sugar</p>
+            <p>🍓 Cornstrach</p>
+            <p>🍓 Strawberry</p><span id="dots">
+        <p>HOW TO COOK:</p></span><span id="more">
+        <ol>
+        <li>First, get your counter and strawberries ready.
+
+            After cleaning your counter, dust it with cornstarch or Mochiko flour. I spread cornstarch on the parchment paper after laying it down.
+            
+            
+            Additionally, dust a dish or container with cornstarch or Mochiko flour.
+            
+            Strawberries should be cleaned and patted dry. Before using them for mochi, make sure they are completely dry.
+            </li>
+
+        <li>Measure out the Mochiko flour and sugar and mix in a medium size bowl.</li><br>
+        <li>Add the water, vinegar, and food coloring to the rice flour.</li><br>
+        <li>Cover the bowl with plastic wrap or a microwaveable plate.
+
+            Place the mochi mixture in the microwave and cook on a high setting for a minute. Not all microwaves have the same strength, so your cook time might be less or more. Please adjust accordingly. I have a powerful microwave.</li><br>
+        <li>Remove from the oven and mix. Put the plastic cover back on and cook for one more minute.
+
+            Continue doing this until it has cooked for approximately four minutes.
+            
+            
+            The mochi will begin to bake on the bowl's sides, as you can see. The whole mixture will bake as you proceed. It's okay if, after 4 minutes, everything is cooked except for the center. It’s done.
+            </li>
+    </ol></span></p>
+    <button onclick="myFunction()" id="myBtn">Read more</button>
+    
+        
+        </div>
+        <div class="dessert">
+            <img src="jelly.jpg" alt="jelly pudding">
+            <h3>JELLY PUDDING</h3>
+            <p>🍮1 box of jelly</p>
+            <p>🍮 1 cup of milk</p>
+            <p>🍮1 cup of cream</p>
+            <p>🍮 1 cup of condensed milk</p>
+            <p>🍮 1 tbsp gelatin</p><span id="dots">
+
+            <p>HOW TO COOK:</p></span><span id="more">
+            <ol>
+                <li>Add 1 cup of water to a box of jelly. Transfer to a pan and chill till firmly set. Atleast 4 hours or preferably overnight. I poured some jelly syrup on the greased cake pan to give that cool jelly flavor on top and chilled it.</li><br>
+                <li>Cut them into shapes of your choice after it is set.
+                    Add gelatin to 1/2 cup of water.
+                    In a pan, bring the milk, cream and condensed milk to a boil on low heat. Switch off the flame.</li><br>
+                <li>Stir in the gelatin to the cream mixture and allow it to cool. Just when is mildly lukewarm add in the cut jelly pieces. The jelly dissolves if you add it to warm milk. Just to give that marble finish I have added it just when very very mildly warm. If you aren't sure, just completely cool it. Transfer this to the pan with the set jelly and carefully position the cut jellies with a spoon and chill overnight.</li><br>
+                <li>Serve your delicious jelly pudding chilled</li><br></ol></span></p>
+                <button onclick="myFunction()" id="myBtn">Read more</button>
+
+        </div>
+        <div class="dessert">
+            <img src="pistachio.jpg" alt="pistachio torte">
+            <h3>PISTACHIO TORTE</h3>
+            <P>INGREDIENTS</P>
+            <p>🍰 1 1⁄4 cups flour </p>
+            <p>🍰 1⁄2 cup butter</p>
+            <p>🍰 1⁄2 cup ground nuts</p>
+            <p>🍰 1 (8 ounce) package cream cheese</p>
+            <p>🍰 1 1⁄2 cups powdered sugar</p>
+            <p>🍰 8 ounces Cool Whip, divided</p>
+            <p>🍰 (3 1/2 ounce) boxes instant pistachio pudding mix</p>
+            <p>🍰 4 1⁄2 cups milk</p><span id="dots">
+
+        <p>HOW TO COOK:</p></span><span id="more">
+        <ol>
+           <li>For the crust, mix together the flour, butter and nuts. Press in the bottom of a 9 x 13 pan.Bake at 325 for 15 minutes.</li><br>
+           <li>Let cool. Mix the cream cheese, powdered sugar and 1 cup cool whip. Spread on top of crust. Mix well the pudding and milk.</li><br>
+           <li>Pour on top of cream cheese mixture and let set. Top with remaining cool whip. May top with chopped nuts if desired.</li><br>
+        </ol></span></p>
+        <button onclick="myFunction()" id="myBtn">Read more</button>
+        </div>
+        
+        <div class="dessert">
+            <img src="tiramisu.jpg" alt="tiramisu cake" >
+            <h3>TIRAMISU CAKE</h3>
+            <p>INGREDIENTS</p>
+            <p>Cake:</p>
+            <p>🥮 1¾ cups (245 g) all-purpose flour</p>
+            <p>🥮 2¼ teaspoons baking powder</p>
+            <p>🥮 ½ teaspoon salt</p>
+            <p>🥮 ½ cup (1 stick/115 g) unsalted butter</p>
+            <p>🥮 1 cup (240 ml) whole milk</p>
+            <p>🥮 4 large eggs</p>
+            <p>🥮 1½ cups (300 g) granulated sugar</p>
+            <p>🥮 1½ teaspoons pure vanilla extract</p>
+            <p>Coffee Soaking Syrup</p>
+            <p>🥮 1 cup (240 ml) hot espresso or strong coffee (hot water mixed with 1 tablespoon espresso powder or instant coffee powder)</p>
+            <p>🥮 ¼ cup (50 g) granulated sugar</p>
+            <p>🥮2-4 tablespoons Marsala Wine or coffee liqueur such as Kahlua , optional</p>
+            <p>Frosting:</p>
+            <p>🥮1 cup (225 g/8 oz.) mascarpone cheese</p>
+            <p>🥮 ¼ cup (50 g) granulated sugar</p>
+            <p>🥮 1 cup (240 ml) heavy cream</p>
+            <p>🥮 Cocoa powder , for dusting</p><span id="dots">
+ 
+    <p>HOW TO COOK:</p></span><span id="more">
+    <ol>
+        <li>To make the cake: Preheat oven to 350°F/180°C. Grease a 9×13-inch pan or line with parchment paper, leaving enough overhang on the sides for lifting the cake out of the pan after baking. Set aside.</li><br>
+        <li>In a medium bowl, sift together flour, baking powder, and salt. Set aside.</li><br>
+        <li>In a small saucepan, combine butter and milk over medium heat just until butter is melted. Do not let it boil. Set aside.</li><br>
+        <li>In the bowl of a stand mixer fitted with the whisk attachment, or using a hand mixer, whisk eggs on high speed until combined and starting to foam, about 1 minute. Gradually add sugar and keep whisking until tripled in volume, about 5 minutes. Beat in vanilla.</li><br>
+        <li>Reduce speed to medium-low and add warm milk mixture into the egg mixture in a slow, steady stream. Add flour mixture gradually and whisk just until combined.</li>
+        <li>Pour batter into prepared cake pan. Bake for 25-35 minutes until the cake springs back when slightly touched and a skewer inserted into the center comes out clean. Allow cake to cool on a wire rack for 20 minutes, then run a knife around the edges. Invert the pan onto the rack, lift it off and let the cake continue to cool on the rack.
+        </li><br>
+        <li>To make the syrup: stir together hot coffee and sugar until sugar is dissolved, then add liqueur, if using. Allow to cool.</li><br>
+        <li>While the cake is till warm, poke lots of holes in the cake with a fork or toothpick. Brush with coffee syrup or pour the syrup over the cake slowly and gradually, allowing it to soak in. Use all the syrup.</li><br>
+        <li>To make the frosting: In the bowl of an electric mixer fitted with the whisk attachment, whisk mascarpone, sugar, and liqueur, if using, on medium speed until combined. Add heavy cream gradually, then increase the speed to high and whisk until stiff peaks form and frosting is thick. Use immediately to frost cake. Just before serving, dust frosting lightly with cocoa powder.</li><br>
+        <li>Keep cake in the fridge for up to 4 days.</li><br></ol></span></p>
+        <button onclick="myFunction()" id="myBtn">Read more</button>
+     
+        </div>
+
+        <div class="dessert">
+            <img src="kekbatik.jpg" alt="kek batik" a href="">
+            <h3>KEK BATIK</h3>
+            <p>🎂300gm biscuit marie</p>
+            <p>🎂 250 gm of butter</p>
+            <p>🎂 2 cups of coco powder</p>
+            <p>🎂 1 tin of condensed milk</p><span id="dots">
+
+        <p>HOW TO COOK</p></span><span id="more">
+        <ol>
+        <li>Crush the Marie biscuits into small pieces.
+            In a saucepan, melt the butter or margarine over medium heat. Then, add the cocoa powder and mix well until combined.</li><br>
+        <li>Pour the condensed milk into the cocoa and butter mixture, then stir until all ingredients are well combined and shiny.
+            Add a little more evaporated milk according to the desired consistency.</li><br>
+        <li>Add the Marie biscuits to the chocolate mixture and mix well until the biscuits are completely coated.
+            Pour the mixture into a baking tray lined with baking paper or greased with butter. Smooth the surface with a spatula.</li><br>
+            <li>Let the batik cake cool and harden in the refrigerator for a few hours before cutting and serving.</li><br>
+        </ol></span></p>
+        <button onclick="myFunction()" id="myBtn">Read more</button>
+        </div>
+
+        <div class="dessert">
+            <img src="hwache.jpg" alt="hwache">
+            <h3>HWACHE RECIPE</h3>
+            <p>🍷 4 cups of chopped fresh watermelon</p>
+            <p>🍷 1 ½ cups fresh fruit (berries, melon, etc)</p>
+            <p>🍷 1 can (14 ounces) fruit cocktail, drained</p>
+            <p>🍷 12 ounces carbonated beverage (Sprite, 7Up, etc)</p>
+            <p>🍷 14 ounces strawberry milk</p>
+            <p>🍷 1 cup ice cubes</p><span id="dots"></span>
+       
+            <p>HOW TO COOK:</p></span><span id="more">
+        <ol> 
+            <li>Place the chopped watermelon, additional fruit, and drained fruit cocktail in a large bowl. Stir to combine.</li><br>
+            <li>Pour the strawberry milk over the fruit. Add the ice and stir to combine. Finally, pour in the carbonated drink and stir gently to combine.</li><br>
+            <li>Serve immediately</li><br>
+        </ol></span></p>
+        <button onclick="myFunction()" id="myBtn">Read more</button>
+            
+        </div>
+        <div class="dessert">
+            <img src="pudingcaramel.jpg" alt="pudding caramel">
+            <h3>PUDDING CARAMEL</h3>
+            <p>INGREDIENTS</p>
+            <p>🍮 evaporated milk</p>
+            <p>🍮 5 eggs</p>
+            <p>🍮 3 tbsp of sugar</p>
+            <p>🍮 vanilla estract</p><span id="dots">
+        <p>HOW TO COOK:</p></span><span id="more">
+    <ol>
+    <li>Pour the evaporated milk into a pot and warm it up. Don't let it get hot. Just put it on the heat for a short while.</li><br>
+    <li>Break the eggs and beat them. Then strain.</li><br>
+    <li>In another container, mix all the ingredients (milk & eggs). Strain again. Some people like to add water. The purpose is to have air spaces when steaming later.</li><br>
+    <li>Set aside for a moment.</li><br>
+
+    <p>INGREDIENTS FOR BURNT SUGAR:</p>
+    <p>🍮 250gm sugar</p>
+    <p>🍮 500ml water</p>
+    <li>Cook the sugar until it changes color. If you want the burnt sugar to be darker, cook it longer.</li><br>
+    <li>When you get the desired color, reduce the heat and add a little water. Stir until the sugar dissolves.</li><br>
+    <li>Cool the burnt sugar first.</li><br>
+    <li>Pour the burnt sugar into a suitable container. If it is a container like this, pour approximately 1/2 cm of burnt sugar.</li><br>
+    <li>Next pour the egg and milk mixture. Do not fill the mold.
+    <li>Arrange in a steamer and steam until cooked. Do not turn the heat too high or the pudding will become bubbly and not pretty.</li><br>
+    <li>Cook for 10-15 minutes, depending on the heat of the steaming time.Can be cooled and enjoyed.</li><br>
+    </ol></span></p>
+    <button onclick="myFunction()" id="myBtn">Read more</button>
+
+            
+        </div>
+    </div>
+
+    <script>
+        function myFunction() {
+          var dots = document.getElementById("dots");
+          var moreText = document.getElementById("more");
+          var btnText = document.getElementById("myBtn");
+        
+          if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more"; 
+            moreText.style.display = "none";
+          } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less"; 
+            moreText.style.display = "inline";
+          }
+        }
+        </script>
+        
+</body>
+</html>

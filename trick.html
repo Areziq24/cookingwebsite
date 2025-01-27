@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birria Recipe</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+         .header h1 {
+            margin: 20;
+    font-size: 1.0em; /* Adjust the size as needed */
+
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8em;
+            background-color: #575757;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .header a:hover {
+            background-color: #444;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 230px;
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .menu {
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #f1f1f1;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown a {
+            padding: 8px;
+            margin: 5px 0;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .dropdown a:hover {
+            background-color: #575757;
+        }
+
+        /* Content styles */
+        .content {
+            flex: 1;
+            padding: 20px 100px;
+            margin-left: 0;
+            transition: margin-left 0.3s;
+        }
+
+        .content.shifted {
+            margin-left: 250px;
+        }
+
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            justify-content: space-evenly;
+        }
+
+        .course-details {
+            flex: 1 1 calc(45% - 20px);
+            max-width: calc(45% - 20px);
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: black;
+            text-align: left;
+        }
+
+       .course-details img {
+    width: 100%;
+    height: 250px; /* You can adjust the height as needed */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+        .back-button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #575757;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+        }
+
+        /* Sidebar toggle button */
+        .sidebar-toggle {
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+        }
+
+        .sidebar-toggle img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <img src="menu.png" alt="Menu">
+        </button>
+        <h1>Taste Maker Academy</h1>
+        <a href="login.html">Log Out</a>
+    </div>
+
+    <!-- Main container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+       <div class="sidebar" id="sidebar">
+        <h2>Recipes</h2>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html">Home</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/menu.html">Menu</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/malaysia.html">Malaysia</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/japan.html">Japan</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/thailand.html">Thailand</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/korea.html">Korea</a>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/t4.html">Top 4 Food Inspiration</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefcelebrity.html">Celebrity Chefs</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/chefinfluncer.html">Chef Influencers</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/student.html">Student Recipes</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/beverage.html">Beverage Recipes</a>
+        <div class="menu">
+            <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips&trick.html">Tips and Trick</a>
+            <div class="dropdown">
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/tips.html">Tips</a>
+                <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/trick.html">Trick</a>
+            </div>
+        </div>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/kitchenutensil.html">Kitchen Utensils</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/dessert.html">Desserts</a>
+        <a href="file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/fb.html">Feedback</a>
+    </div>
+
+        <!-- Content -->
+        <div class="content" id="content">
+            <div class="content-container">
+                <div id="course1" class="course-details">
+            <img src="syrup.jpg" alt="syrup">
+            <h1>How to make simple syrup</h1>
+            <p>Want to sweeten your lemonade or iced tea? Instead of reaching for the sugar bowl, you'll get a better result—no sandy granules at the bottom of the glass—if you mix up a batch of simple syrup. Here's how.</p>
+            <p><b>Step 1.</b> Combine equal parts water and sugar in a saucepan and cook over medium heat, stirring often, until the sugar has completely dissolved (3 to 5 minutes).</p>
+            <p><b>Step 2.</b> Let it cool and then add to beverages as needed.</p>
+            <p>Use 1½ teaspoons of simple syrup for every teaspoon of sugar you would usually use and store the syrup in the refrigerator for up to 2 weeks. We told you it was simple!</p>
+    </div>
+
+            <div id="course2" class="course-details">
+            <img src="corn.jpg" alt="grill corn">
+            <h1>How to grill corn</h1>
+            <p>It's hard to beat the smoky-sweet flavor of fresh corn cooked on a grill. Here's how to do it to perfection.</p>
+            <p><b>Step 1.</b> Pull the husks back from the corn, but leave them attached at the stem. Remove and discard the silks.</p>
+            <p><b>Step 2.</b> Pull the husks back up around the corn. Soak the ears in a roasting pan or large bowl full of water for 15 minutes. (This prevents the husks from burning.)</p>
+            <p><b>Step 3.</b> Grill corn over medium heat, turning often, until the kernels are tender and husks are lightly charred, 8 to 10 minutes.</p>
+           </div>
+
+            <div id="course2" class="course-details">
+            <img src="pizza.jpg" alt="pizza">
+            <h1>How to reheat pizza perfectly</h1>
+            <p>Whether you're craving a midnight snack or enjoying leftovers, reheating pizza to perfection is an art. You don't want a soggy crust or unevenly melted cheese. Here are three foolproof methods to bring your pizza back to life:</p>
+            <p><b>Step 1.</b> Preheat the oven to 375°F (190°C).</p>
+            <p><b>Step 2.</b> Place your pizza slices on a baking sheet. You can use parchment paper or aluminum foil for easy cleanup.</p>
+            <p><b>Step 3.</b> Bake the pizza for about 10 minutes. If you want a crispier crust, you can bake it directly on the oven rack (just be sure to put a baking sheet on the rack below to catch any drips).</p>
+            <p><b>Step 4.</b> After 10 minutes, check to see if the cheese is bubbly and the crust is crispy. If not, continue baking for a few more minutes.</p>
+            <p><b>Step 5.</b> Let the pizza cool for a minute before serving.</p>
+            </div>
+
+
+            <div id="course2" class="course-details">
+                <img src="ironpan.png" alt="iron pan">
+                <h1>How to season a cast iron pan</h1>
+                <p>The cast iron skillet is an affordable classic that belongs in every kitchen. Cast iron distributes heat evenly and holds heat, so it's great for searing and frying. Its naturally nonstick surface—the product of "seasoning," a method used to seal and smooth the iron—makes it a good choice for delicate items, like breaded cutlets. Some pans come pre-seasoned. If yours isn't or if you have a pan that needs re-seasoning, here's how to easily get it into shape.</p>
+                <p><b>Step 1.</b> Wash the pan with hot, soapy water and a stiff brush, and then rinse and dry thoroughly. Use a folded paper towel to apply a thin, even coating of vegetable oil to the pan, inside and out.</p>
+                <p><b>Step 2.</b> Place a sheet of aluminum foil on the bottom oven rack to catch drips, and then set the pan on the top rack at 350 degrees F for 1 hour.</p>
+                <p><b>Step 3.</b> After an hour, leave the pan in the oven while they both cool down.</p>
+            </div>
+
+             <div id="course2" class="course-details">
+               <img src="bread.jpg" alt="breading">
+                <h1>How to breading without the mess</h1>
+                <p>Coating ingredients in flour, egg, and bread crumbs is the surest path to an extra-crispy crust, but it can turn your hands into a sticky, clumpy disaster. Follow this neat technique to solve that problem.</p>
+                <p><b>Step 1.</b> Arrange your ingredients from left to right in this order: the food you want to bread (in this case, chicken tenders), flour, beaten egg, and bread crumbs.</p>                    <p><b>Step 2.</b> Using your left ("dry") hand, turn the chicken in the flour to coat both sides, and then drop it into the bowl of egg.</p>
+                <p><b>Step 3.</b> Using your right ("wet") hand, lift the chicken from the egg, shake off the excess, and then drop it into the bread crumbs.</p>
+                <p><b>Step 4.</b> Using your left ("dry") hand, turn the chicken in the bread crumbs to coat both sides. Tap off excess bread crumbs, and then transfer to a clean plate.</p>
+             </div>
+
+            <div id="course2" class="course-details">
+                <img src="browniee.jpg" alt="brownies">
+                <h1>How to slicing brownies and bars neatly</h1>
+                <p>For perfect squares or rectangles, a spatula just won't cut it. Follow this easy step-by-step technique to guarantee brownies and bars that look as good as they taste. The secret ingredient: parchment paper.</p>
+                <p><b>Step 1.</b> Before baking, prepare the baking pan by using a pastry brush to coat the bottom and sides with softened butter.</p>
+                <p><b>Step 2.</b> Line the pan with a sheet of parchment leaving an overhang on 2 sides, press down so it sticks, and then brush it with more butter. Line with a second sheet of parchment perpendicular to the first (also with an overhang) and brush it with butter.</p>
+                <p><b>Step 3.</b> Add batter to the pan, bake, and let cool as directed. Then, gripping the paper overhangs, lift the brownies or bars out of the pan and transfer to a cutting board.</p>
+                <p><b>Step 4.</b> Using a large serrated knife, cut into squares or rectangles as desired, and then lift them off the parchment.</p>
+            </div>            
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+            document.getElementById("content").classList.toggle("shifted");
+        }
+    </script>
+</body>
+</html>
