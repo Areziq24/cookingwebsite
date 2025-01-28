@@ -3,130 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Welcome to Taste Maker Academy</title>
+    <link rel="icon" type="image/png" href="your-logo.png"> <!-- Replace with your logo -->
+    <link rel="stylesheet" href="style.css">
     <style>
+        /* General Styles */
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
-            background-image: url('cook.jpg'); /* Set background image */
-            background-size: cover; /* Cover the entire page */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Do not repeat the image */
+            background: url('cook.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            flex-direction: column;
-            color: white; /* Set text color to white for better contrast */
+            min-height: 100vh;
         }
 
-        .logo {
-            width: 100px; /* Adjust logo size */
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        .title {
-            font-size: 32px;
-            color: white; /* Set title color to white */
-            margin-bottom: 20px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for better readability */
-        }
-
-        .login-container {
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-            padding: 30px 50px;
+        .form-container {
+            width: 380px;
+            background: rgba(20, 20, 20, 0.9);
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 400px;
-            width: 100%;
+            box-shadow: 3px 3px 30px rgb(50, 50, 50);
         }
 
-        .login-container h2 {
-            margin-bottom: 20px;
-            font-size: 28px;
-            color: white; /* Set heading color to white */
-            border-bottom: 2px solid white;
-            padding-bottom: 10px;
+        .form-container h1 {
+            margin-bottom: 15px;
+            font-size: 24px;
         }
 
-        .input-container {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .input-container label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 16px;
-            color: white; /* Set label color to white */
-        }
-
-        .input-container input {
-            width: 100%;
+        .input-field {
+            width: 90%;
             padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-
-        .input-container input:focus {
-            border-color: white;
-            outline: none;
-        }
-
-        .login-button {
-            width: 100%;
-            padding: 12px;
-            background-color: #333;
+            margin-bottom: 20px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #222;
             color: white;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff8800;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s;
         }
 
-        .login-button:hover {
-            background-color: #555;
+        .btn:hover {
+            background-color: #cc6f00;
         }
 
-        .login-button:active {
-            background-color: #222;
+        .footer-links {
+            margin-top: 80px;
+            font-size: 14px;
+        }
+
+        .footer-links a {
+            color: #ff8800;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Popup */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            color: black;
+        }
+
+        .popup p {
+            margin-bottom: 10px;
+        }
+
+        .popup button {
+            background-color: #ff8800;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background-color: transparent;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
         }
     </style>
 </head>
+
 <body>
-    <!-- Add the logo here -->
-    <img src="logo.png" alt="Logo" class="logo">
 
-    <div class="title">WELCOME TO COOKING CLASS WEBSITE</div>
+    <div class="form-container">
+        <img src="logo.png" alt="Logo" width="100"> <!-- Replace with your logo -->
+        <h1>Welcome to Taste Maker Academy</h1>
 
-    <div class="login-container">
-        <h2>Login</h2>
-        <form action="index.html" method="GET">
-            <div class="input-container">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        <!-- Login Form -->
+        <div id="login-form">
+            <h2>Login</h2>
+            <form onsubmit="handleLogin(event)">
+                <input type="email" id="login-email" class="input-field" placeholder="Email" required>
+                <input type="password" id="login-password" class="input-field" placeholder="Password" required>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <div class="footer-links">
+                <p>Don't have an account? <a onclick="toggleForm('create')">Create Account</a></p>
             </div>
-            <div class="input-container">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <!-- Create Account Form -->
+        <div id="create-account-form" class="hidden">
+            <h2>Create Account</h2>
+            <form onsubmit="handleCreateAccount(event)">
+                <input type="text" id="create-first-name" class="input-field" placeholder="First name" required>
+                <input type="text" id="create-last-name" class="input-field" placeholder="Last name" required>
+                <input type="email" id="create-email" class="input-field" placeholder="Email" required>
+                <input type="password" id="create-password" class="input-field" placeholder="Password" required>
+                <button type="submit" class="btn">Create</button>
+            </form>
+            <div class="footer-links">
+                <p>Already have an account? <a onclick="toggleForm('login')">Login</a></p>
             </div>
-            <button type="submit" class="login-button">Log in</button>
-        </form>
+        </div>
     </div>
-</div>
+
+    <!-- Notification Popup -->
+    <div id="popup" class="popup hidden">
+        <p id="popup-message"></p>
+        <button onclick="closePopup()">OK</button>
     </div>
-<footer style="background-color: transparent; color: white; text-align: center; padding: 10px 0; margin-top: 20px;">
-    Copyright ©2025; Designed by Taste Maker Academy.
-</footer>
-    </div>
-</div>
+
+    <!-- Footer -->
+    <footer>
+        Copyright ©2025; Designed by Taste Maker Academy.
+    </footer>
+
+    <script>
+        // Toggle between Login & Create Account forms
+        function toggleForm(form) {
+            const loginForm = document.getElementById("login-form");
+            const createAccountForm = document.getElementById("create-account-form");
+
+            if (form === 'login') {
+                loginForm.classList.remove("hidden");
+                createAccountForm.classList.add("hidden");
+            } else {
+                createAccountForm.classList.remove("hidden");
+                loginForm.classList.add("hidden");
+            }
+        }
+
+        // Display pop-up messages
+        function showPopup(message) {
+            const popup = document.getElementById("popup");
+            const popupMessage = document.getElementById("popup-message");
+            popupMessage.textContent = message;
+            popup.classList.remove("hidden");
+        }
+
+        function closePopup() {
+            const popup = document.getElementById("popup");
+            popup.classList.add("hidden");
+        }
+
+        // Handle account creation
+        function handleCreateAccount(event) {
+            event.preventDefault();
+
+            const firstName = document.getElementById("create-first-name").value;
+            const lastName = document.getElementById("create-last-name").value;
+            const email = document.getElementById("create-email").value;
+            const password = document.getElementById("create-password").value;
+
+            // Save user data in localStorage
+            const user = { firstName, lastName, email, password };
+            localStorage.setItem("user", JSON.stringify(user));
+
+            showPopup("Account created successfully!");
+            toggleForm('login'); // Redirect to login form
+        }
+
+        // Handle login
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+
+            const storedUser = JSON.parse(localStorage.getItem("user"));
+
+            if (storedUser && storedUser.email === email && storedUser.password === password) {
+                // Set login success flag in localStorage
+                localStorage.setItem("loginSuccess", "true");
+
+                // Redirect to homepage
+                window.location.href = "index.html";
+            } else {
+                showPopup("Invalid email or password.");
+            }
+        }
+    </script>
+
 </body>
 </html>
