@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Taste Maker Academy</title>
-    <link rel="icon" type="image/png" href="your-logo.png"> <!-- Replace with your logo -->
+    <link rel="icon" type="image/png" href="logo.png"> <!-- Replace with your logo -->
     <link rel="stylesheet" href="style.css">
     <style>
         /* General Styles */
@@ -64,7 +64,7 @@
         }
 
         .footer-links {
-            margin-top: 80px;
+            margin-top: 15px;
             font-size: 14px;
         }
 
@@ -213,24 +213,15 @@
             toggleForm('login'); // Redirect to login form
         }
 
-        // Handle login
+        // Handle login (no validation)
         function handleLogin(event) {
             event.preventDefault();
 
-            const email = document.getElementById("login-email").value;
-            const password = document.getElementById("login-password").value;
+            // Skip user validation, allow any input
+            localStorage.setItem("loginSuccess", "true");
 
-            const storedUser = JSON.parse(localStorage.getItem("user"));
-
-            if (storedUser && storedUser.email === email && storedUser.password === password) {
-                // Set login success flag in localStorage
-                localStorage.setItem("loginSuccess", "true");
-
-                // Redirect to homepage
-                window.location.href = "index.html";
-            } else {
-                showPopup("Invalid email or password.");
-            }
+            // Redirect to homepage
+            window.location.href = "file:///C:/Users/MHaziq/Desktop/GROUP%20PROJECT%20WEBSITE/index.html";
         }
     </script>
 
